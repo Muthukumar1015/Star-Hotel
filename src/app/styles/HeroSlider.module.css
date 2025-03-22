@@ -1,0 +1,297 @@
+/* 🎬 Hero Slider Container */
+.heroContainer {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+  background: url('/images/brick-wall-bg.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+/* 🖼️ Background Overlay */
+.bgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* 🚀 Slide Animation */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  z-index: 2;
+}
+
+.enterRight {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.enterLeft {
+  opacity: 1;
+  transform: translateX(-100%);
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* 📜 Text Section */
+.textSection {
+  position: relative;
+  max-width: 40%;
+  color: #fff;
+  text-align: left;
+  z-index: 3;
+}
+
+/* 🔥 Title */
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* 🔴 Order Button */
+.orderButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: 0.3s ease-in-out;
+}
+
+.orderButton:hover {
+  background-color: darkred;
+}
+
+/* 🎨 Image Section */
+.imageSection {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  z-index: 3;
+}
+
+/* 📸 Image Styling */
+.image {
+  width: 100%;
+  height: auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* 🚀 Shake Effect on Hover */
+.image:hover {
+  animation: shake 0.3s ease-in-out infinite alternate;
+}
+
+/* 🎭 Shake Animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-3px) rotate(-1deg); }
+  50% { transform: translateX(3px) rotate(1deg); }
+  75% { transform: translateX(-2px) rotate(-1deg); }
+  100% { transform: translateX(2px) rotate(1deg); }
+}
+
+
+/* 🚀 Popular Food Section - No Extra Space */
+.popularFoodContainer {
+  margin-top: -20px; /* Pulls the section up */
+  padding: 20px 0;
+  background: #222;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 🏷️ Section Title */
+.sectionTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* 🍔 Food Slider - Continuous Left Movement */
+.foodSlider {
+  display: flex;
+  gap: 20px;
+  animation: moveLeft 10s linear infinite;
+  width: max-content; /* Prevents blank space */
+}
+
+/* 🔁 Animation: Moves All Items Left Infinitely */
+@keyframes moveLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); } /* Moves images left seamlessly */
+}
+
+/* 🍕 Food Item - Inline for Infinite Loop */
+.foodItem {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* 🔵 Dotted Outer Circle (Rotates, Image Fixed Inside) */
+.foodItem .outerCircle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 3px dotted #ff4500;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotateCircle 5s linear infinite;
+}
+
+/* 🔄 Animation: Outer Circle Rotates */
+@keyframes rotateCircle {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 🍟 Fixed Image (Centered Inside Rotating Circle) */
+.foodImage {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 3px solid white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 📜 Food Text Scrolls Smoothly */
+.foodText {
+  margin-top: 135px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  background:transparent;
+  padding: 30px 7px;
+  border-radius: 3px;
+  color: rgb(249, 246, 246);
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* ✅ Text Appears with Smooth Scroll Up */
+.foodText.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ❌ Text Disappears with Smooth Scroll Down */
+.foodText.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* 🔥 Special Offers Section */
+.specialOffersContainer {
+  margin-top: 40px;
+  padding: 20px;
+  background: #bfb3a4;
+  text-align: center;
+}
+
+/* 📦 Grid Layout for Cards */
+.specialOffersGrid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* 🏷️ Offer Card Styling */
+.offerCard {
+  position: relative;
+  background: url('/images/offer grid.jpg') no-repeat center center;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  text-align: center;
+  width: 300px;
+}
+
+/* 🖼️ Offer Image */
+.offerImage {
+  width: 100%;
+  border-radius: 10px;
+}
+
+/* 🔥 50% OFF Badge */
+.offerBadge {
+  position: absolute;
+  top: 10px;
+  left: 10px; /* ✅ Changed from 'right' to 'left' */
+  width: 60px;
+  height: 90px;
+  animation: shake 0.5s ease-in-out infinite alternate;
+}
+/* 🚀 Shake Animation for 50% OFF */
+@keyframes shake {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+  100% { transform: rotate(-5deg); }
+}
+/* 📜 Offer Text */
+.offerText {
+  padding: 10px;
+}
+
+/* 🏆 Title and Subtitle */
+.subtitle {
+  color: rgb(237, 234, 234);
+  font-weight: bold;
+}
+
+.offerTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: aliceblue;
+}
+
+.description {
+  font-size: 1rem;
+  color: #eae5e5;
+  margin-bottom: 10px;
+}
+
+/* 🔴 Order Button */
+.orderButton {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.orderButton:hover {
+  background-color: darkred;
+}

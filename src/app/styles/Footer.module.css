@@ -1,0 +1,61 @@
+.footer {
+   background: #0d1318;
+   color: white;
+   padding-top: 40px;
+ }
+ 
+ .footerTop {
+   background: #f26322;
+   color: white;
+   padding: 20px 0;
+   border-radius: 10px;
+   margin-bottom: 30px;
+ }
+ 
+ .footerBottom {
+   background: #dc1616;
+   color: white;
+   padding: 10px 0;
+ }
+ 
+ .floatingImage {
+   position: absolute;
+   top: 10px;
+   right: 0px;
+   width: 150px;
+   animation: shake 2s infinite ease-in-out;
+ }
+ .list-unstyled:hover{
+   color: #dc1616;
+ }
+
+
+ @keyframes shake {
+   0%, 100% { transform: translateY(0); }
+   50% { transform: translateY(-5px); }
+ }
+ 
+ .subscribeBox {
+   display: flex;
+   align-items: center;
+   border: 1px solid white;
+   border-radius: 5px;
+   overflow: hidden;
+ }
+ 
+ .subscribeBox input {
+   border: none;
+   padding: 8px;
+   flex: 1;
+   background: transparent;
+   color: white;
+ }
+ 
+ .subscribeBox button {
+   background: #f26322;
+   border: none;
+   padding: 8px;
+   cursor: pointer;
+   color: white;
+ }
+ 
