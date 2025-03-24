@@ -1,0 +1,13 @@
+/* 🌫️ Apply Cement Color to the Whole Page */
+body, html {
+  background-color: #bfb3a4; /* ✅ Cement-like color */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+/* 🔹 Ensure All Sections Use Transparent Background */
+.heroContainer1, .specialOffersContainer, .footer, .navbar {
+  background-color: transparent; /* ✅ Inherit cement color */
+}

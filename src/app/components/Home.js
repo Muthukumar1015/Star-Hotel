@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "../styles/HeroSlider.module.css";
+import "../styles/globals.css"
 
 const slides = [
    {
