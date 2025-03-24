@@ -10,7 +10,7 @@
 .menuList {
   display: flex;
   gap: 30px;
-  animation: scrollLeft 25s linear infinite;
+  animation: scrollLeft 20s linear infinite; /* Adjusted speed */
 }
 
 .menuItem {
@@ -19,19 +19,20 @@
   color: #a8a8a8;
   text-transform: uppercase;
   padding: 5px 15px;
-  position: relative;  /* Needed for pseudo-element */
-  transition: color 0.3s ease-in-out; /* Smooth color change */
+  position: relative;
+  transition: color 0.3s ease-in-out;
+  white-space: nowrap;
 }
 
 .menuItem::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -5px; /* Space below text */
-  width: 0%; /* Start with 0 width */
+  bottom: -5px;
+  width: 0%;
   height: 3px;
   background-color: red;
-  transition: width 0.3s ease-in-out, left 0.3s ease-in-out; /* Smooth effect */
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
 }
 
 .menuItem:hover {
@@ -49,5 +50,50 @@
   }
   to {
     transform: translateX(-100%);
+  }
+}
+
+/* ✅ Responsive Design for Different Screen Sizes */
+
+/* Large Screens (Desktops, Laptops) */
+@media (max-width: 1440px) {
+  .menuItem {
+    font-size: 50px;
+  }
+}
+
+/* Medium Screens (Tablets) */
+@media (max-width: 1024px) {
+  .menuItem {
+    font-size: 40px;
+    padding: 5px 10px;
+  }
+  .menuList {
+    gap: 20px;
+    animation: scrollLeft 15s linear infinite; /* Faster scrolling */
+  }
+}
+
+/* Small Screens (Mobile Phones) */
+@media (max-width: 768px) {
+  .menuItem {
+    font-size: 30px;
+    padding: 5px 8px;
+  }
+  .menuList {
+    gap: 15px;
+    animation: scrollLeft 12s linear infinite; /* Even faster scrolling */
+  }
+}
+
+/* Extra Small Screens (Small Mobile Phones) */
+@media (max-width: 480px) {
+  .menuItem {
+    font-size: 24px;
+    padding: 5px 6px;
+  }
+  .menuList {
+    gap: 10px;
+    animation: scrollLeft 10s linear infinite;
   }
 }

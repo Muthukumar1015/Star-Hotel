@@ -13,7 +13,7 @@
   position: absolute;
   left: -50px;
   top: 50px;
-  background: url("/images/left-bg.png") no-repeat;
+  background: url("/images/left-bg.png") no-repeat center/contain;
   width: 100px;
   height: 100px;
 }
@@ -22,7 +22,7 @@
   position: absolute;
   right: -50px;
   bottom: 50px;
-  background: url("/images/right-bg.png") no-repeat;
+  background: url("/images/right-bg.png") no-repeat center/contain;
   width: 100px;
   height: 100px;
 }
@@ -49,6 +49,7 @@
   justify-content: center;
   gap: 15px;
   margin: 20px 0;
+  flex-wrap: wrap; /* Ensures tabs wrap on smaller screens */
 }
 
 .tabButton {
@@ -132,4 +133,102 @@
 /* First Item Highlight */
 .highlighted {
   color: #ff5722;
+}
+
+/* ✅ Responsive Design for Mobile, Tablet, Laptop, and Desktop */
+
+/* Large Screens (Laptops, Desktops) */
+@media (max-width: 1440px) {
+  .mainHeading {
+    font-size: 26px;
+  }
+  .menuGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Medium Screens (Tablets) */
+@media (max-width: 1024px) {
+  .menuSection {
+    padding: 30px;
+  }
+  .menuGrid {
+    grid-template-columns: 1fr;
+  }
+  .leftBg, .rightBg {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Small Screens (Mobile Phones) */
+@media (max-width: 768px) {
+  .menuSection {
+    padding: 20px;
+  }
+  .mainHeading {
+    font-size: 24px;
+  }
+  .tabs {
+    gap: 10px;
+  }
+  .tabButton {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  .menuImg {
+    width: 40px;
+    height: 40px;
+  }
+  .itemName {
+    font-size: 14px;
+  }
+  .itemDesc {
+    font-size: 10px;
+  }
+  .itemPrice {
+    font-size: 14px;
+  }
+  .leftBg, .rightBg {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Extra Small Screens (Small Mobile Phones) */
+@media (max-width: 480px) {
+  .menuSection {
+    padding: 15px;
+  }
+  .mainHeading {
+    font-size: 20px;
+  }
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tabButton {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+  .menuGrid {
+    grid-template-columns: 1fr;
+  }
+  .menuImg {
+    width: 35px;
+    height: 35px;
+  }
+  .itemName {
+    font-size: 12px;
+  }
+  .itemDesc {
+    font-size: 9px;
+  }
+  .itemPrice {
+    font-size: 12px;
+  }
+  .leftBg, .rightBg {
+    width: 50px;
+    height: 50px;
+  }
 }
