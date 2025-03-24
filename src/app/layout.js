@@ -1,18 +1,20 @@
-'use client';
+"use client";
 
-import { Provider } from 'react-redux';
-import Navbar from '@/app/components/Navbar'; // Import Navbar
-import Footer from '@/app/components/Footer'; // Import Footer
+import { Provider } from "react-redux";
+import store from "@/app/store/store"; // Correct import
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 
 export default function RootLayout({ children }) {
   return (
-      <html lang="en">
-        <body>
-          <Navbar /> {/* Navbar appears on all pages */}
-          {children} {/* Main page content */}
-          <Footer /> {/* Footer appears on all pages */}
-        </body>
-      </html>
-    
+    <html lang="en">
+      <body>
+        <Provider store={store}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Provider>
+      </body>
+    </html>
   );
 }

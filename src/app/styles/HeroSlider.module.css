@@ -133,10 +133,11 @@
 
 /* 🏷️ Section Title */
 .sectionTitle {
-   font-size: 2rem;
+   font-size: 25px;
    font-weight: bold;
    text-transform: uppercase;
    margin-bottom: 10px;
+   color: #000;
 }
 
 /* 🍔 Food Slider - Continuous Left Movement */
@@ -204,7 +205,7 @@
 /* 📜 Food Text Scrolls Smoothly */
 .foodText {
    margin-top: 125px;
-   font-size: 25px;
+   font-size: 20px;
    font-weight: bold;
    background: transparent;
    padding: 30px 7px;
@@ -450,15 +451,9 @@
 }
 
 @media (max-width: 768px) {
-   .leftImageContainer,
+  .leftImageContainer,
    .rightImageContainer {
-      width: 250px;
-      height: 230px;
-   }
-
-   .circularImageWrapper {
-      width: 80px;
-      height: 80px;
+      display: none;
    }
 }
 
@@ -468,9 +463,6 @@
       display: none;
    }
 }
-
-
-
 
 /* Best Selling Dishes Section */
 .best-selling-container {

@@ -1,0 +1,118 @@
+.specialFood {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 50px 100px;
+   background: linear-gradient(to right, #111, #321);
+   color: white;
+   position: relative;
+   overflow: hidden;
+ }
+ 
+ /* Left Side Content */
+ .textContent {
+   max-width: 40%;
+ }
+ 
+ .welcome {
+   color: red;
+   font-weight: bold;
+   text-transform: uppercase;
+ }
+ 
+ .heading {
+   font-size: 2.5rem;
+   font-weight: bold;
+ }
+ 
+ .offer {
+   color: orange;
+   font-size: 1.2rem;
+   margin-top: 5px;
+ }
+ 
+ .orderBtn {
+   background: red;
+   color: white;
+   padding: 10px 20px;
+   border: none;
+   font-size: 1rem;
+   font-weight: bold;
+   cursor: pointer;
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   margin-top: 20px;
+ }
+ 
+ .orderBtn span {
+   font-size: 1.2rem;
+ }
+ 
+ /* Floating Pizza Image */
+ .imageContainer {
+   position: relative;
+ }
+ 
+ .pizzaImage {
+   animation: floatPizza 3s ease-in-out infinite;
+ }
+ 
+ @keyframes floatPizza {
+   0%, 100% {
+     transform: translateY(0px);
+   }
+   50% {
+     transform: translateY(-10px);
+   }
+ }
+ 
+ /* Shaking Elements */
+ .shake {
+   position: absolute;
+   animation: shakeEffect 3s infinite ease-in-out;
+ }
+ 
+ @keyframes shakeEffect {
+   0%, 100% { transform: rotate(0deg); }
+   25% { transform: rotate(-2deg); }
+   50% { transform: rotate(2deg); }
+   75% { transform: rotate(-1deg); }
+ }
+ 
+ 
+ 
+ /* Shaking Positions */
+ .leafTop {
+   top: 0px;
+   left: 0px;
+ }
+ 
+ .leafBottom {
+   bottom: 0px;
+   left: 0px;
+ }
+ 
+ .tomatoRight {
+   bottom: 0px;
+   right: -40px;
+ }
+ 
+ /* Responsive (Mobile View) */
+ @media (max-width: 768px) {
+   .specialFood {
+     flex-direction: column;
+     padding: 30px 20px;
+   }
+ 
+   .textContent {
+     max-width: 100%;
+     text-align: center;
+   }
+ 
+   .imageContainer {
+     margin-top: 30px;
+   }
+ 
+   
+ }

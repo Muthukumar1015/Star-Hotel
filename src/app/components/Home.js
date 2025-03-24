@@ -4,7 +4,9 @@ import Image from "next/image";
 import styles from "../styles/HeroSlider.module.css";
 import "../styles/globals.css"
 import BestSellingDishes from "../components/BestSellingDishes";
-
+import TodaySpecialFood from "../components/TodaySpecialFood";
+import FresheatMenu from "../components/FresheatMenu";
+import ScrollingMenu from "./ScrollingMenu";
 
 const slides = [
    {
@@ -79,6 +81,9 @@ export default function HeroSlider() {
          {/* Special Offers Card Section */}
          <SpecialOffers />
          <BestSellingDishes />
+         <TodaySpecialFood />
+         <FresheatMenu />
+         <ScrollingMenu />
       </>
    );
 }

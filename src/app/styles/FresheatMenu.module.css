@@ -1,0 +1,135 @@
+.menuSection {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Background Elements */
+.leftBg {
+  position: absolute;
+  left: -50px;
+  top: 50px;
+  background: url("/images/left-bg.png") no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+.rightBg {
+  position: absolute;
+  right: -50px;
+  bottom: 50px;
+  background: url("/images/right-bg.png") no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+/* Titles */
+.menuHeading {
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #ff5722;
+  text-transform: uppercase;
+}
+
+.mainHeading {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 5px;
+}
+
+/* Category Tabs */
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.tabButton {
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.tabButton:hover,
+.active {
+  color: #ff5722;
+  border-bottom: 3px solid #ff5722;
+}
+
+.tabIcon {
+  margin-right: 5px;
+}
+
+/* Divider */
+.divider {
+  border: 0;
+  border-top: 2px solid #ddd;
+  margin: 10px 0;
+}
+
+/* Menu Grid */
+.menuGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Menu Item */
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+.menuItem:hover {
+  background: #f9f9f9;
+}
+
+/* Item Details */
+.itemDetails {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menuImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.itemName {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.itemDesc {
+  font-size: 12px;
+  color: #666;
+}
+
+.itemPrice {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* First Item Highlight */
+.highlighted {
+  color: #ff5722;
+}

@@ -1,0 +1,53 @@
+.scrollingMenu {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  background: #fff3e0; /* Light background */
+  padding: 10px 0;
+}
+
+.menuList {
+  display: flex;
+  gap: 30px;
+  animation: scrollLeft 25s linear infinite;
+}
+
+.menuItem {
+  font-size: 60px;
+  font-weight: 900;
+  color: #a8a8a8;
+  text-transform: uppercase;
+  padding: 5px 15px;
+  position: relative;  /* Needed for pseudo-element */
+  transition: color 0.3s ease-in-out; /* Smooth color change */
+}
+
+.menuItem::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -5px; /* Space below text */
+  width: 0%; /* Start with 0 width */
+  height: 3px;
+  background-color: red;
+  transition: width 0.3s ease-in-out, left 0.3s ease-in-out; /* Smooth effect */
+}
+
+.menuItem:hover {
+  color: red;
+}
+
+.menuItem:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+@keyframes scrollLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
