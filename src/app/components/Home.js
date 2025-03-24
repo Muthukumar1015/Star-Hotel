@@ -6,7 +6,9 @@ import "../styles/globals.css"
 import BestSellingDishes from "../components/BestSellingDishes";
 import TodaySpecialFood from "../components/TodaySpecialFood";
 import FresheatMenu from "../components/FresheatMenu";
-import ScrollingMenu from "./ScrollingMenu";
+import ScrollingMenu from "../components/ScrollingMenu";
+import SpecialOffer from "../components/SpecialOffer";
+
 
 const slides = [
    {
@@ -84,6 +86,8 @@ export default function HeroSlider() {
          <TodaySpecialFood />
          <FresheatMenu />
          <ScrollingMenu />
+        <SpecialOffer />
+         
       </>
    );
 }

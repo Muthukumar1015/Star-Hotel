@@ -1,0 +1,235 @@
+/* Container */
+.specialOffer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 50px 20px;
+  background: url("/images/special bg.png") no-repeat center center;
+  background-size: cover;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+/* Left Side - Images */
+.offerImage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+}
+
+.mainImage {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 20px;
+}
+
+/* Rotating Image (Top-Left) */
+.rotatingImage {
+  position: absolute;
+  top: -30px;
+  left: -40px;
+  width: 60px;
+  animation: rotateImage 5s linear infinite;
+}
+
+@keyframes rotateImage {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Floating Images */
+.rightTop {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 100px;
+  animation: floatImage 3s ease-in-out infinite;
+}
+
+.rightBottom {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 100px;
+  animation: floatImage 4s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Right Side - Offer Content */
+.offerContent {
+  background-color: #222;
+  padding: 40px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  width: 100%;
+  max-width: 350px;
+}
+
+/* Special Offer Title */
+.specialOfferTitle {
+  font-size: 16px;
+  color: #ff5722;
+  font-weight: bold;
+}
+
+/* Offer Text */
+.offerText {
+  font-size: 22px;
+  margin: 10px 0 20px;
+}
+
+/* Countdown Timer */
+.countdownTimer {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.timeBox {
+  background: #ff5722;
+  padding: 12px;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 60px;
+}
+
+.timeBox span {
+  font-size: 22px;
+  font-weight: bold;
+  display: block;
+}
+
+.timeBox p {
+  font-size: 12px;
+  margin: 0;
+}
+
+/* Order Button */
+.orderNow {
+  background: #ff0000;
+  color: white;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.orderNow:hover {
+  background: #cc0000;
+}
+
+/* 📌 Responsive Design */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .specialOffer {
+    gap: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .offerImage {
+    max-width: 280px;
+  }
+
+  .offerContent {
+    max-width: 300px;
+    padding: 30px;
+  }
+
+  .offerText {
+    font-size: 20px;
+  }
+
+  .timeBox {
+    padding: 10px;
+    min-width: 50px;
+  }
+
+  .timeBox span {
+    font-size: 20px;
+  }
+
+  .orderNow {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile (Below 768px) */
+@media (max-width: 768px) {
+  .specialOffer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .offerImage {
+    max-width: 230px;
+  }
+
+  .mainImage {
+    width: 100%;
+  }
+
+  .offerContent {
+    max-width: 280px;
+    padding: 20px;
+  }
+
+  .specialOfferTitle {
+    font-size: 14px;
+  }
+
+  .offerText {
+    font-size: 18px;
+  }
+
+  .countdownTimer {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .timeBox {
+    padding: 8px;
+    min-width: 45px;
+  }
+
+  .timeBox span {
+    font-size: 18px;
+  }
+
+  .timeBox p {
+    font-size: 10px;
+  }
+
+  .orderNow {
+    padding: 8px 18px;
+    font-size: 14px;
+  }
+}

@@ -3,8 +3,9 @@
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  background: #fff3e0; /* Light background */
+  background: #eeebe7; /* Light background */
   padding: 10px 0;
+  margin-top: 40px;
 }
 
 .menuList {
@@ -36,7 +37,7 @@
 }
 
 .menuItem:hover {
-  color: red;
+  color: rgb(233, 19, 19);
 }
 
 .menuItem:hover::after {
