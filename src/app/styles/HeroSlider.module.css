@@ -1,219 +1,236 @@
 /* 🎬 Hero Slider Container */
 .heroContainer {
-  position: relative;
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
-  background: url('/images/brick-wall-bg.jpg') no-repeat center center;
-  background-size: cover;
+   position: relative;
+   width: 100%;
+   height: 500px;
+   overflow: hidden;
+   background: url("/images/brick-wall-bg.jpg") no-repeat center center;
+   background-size: cover;
 }
 
 /* 🖼️ Background Overlay */
 .bgOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(0, 0, 0, 0.5);
+   z-index: 1;
 }
 
 /* 🚀 Slide Animation */
 .slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  opacity: 0;
-  transform: translateX(100%);
-  transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-  z-index: 2;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   opacity: 0;
+   transform: translateX(100%);
+   transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+   z-index: 2;
 }
 
 .enterRight {
-  opacity: 1;
-  transform: translateX(0);
+   opacity: 1;
+   transform: translateX(0);
 }
 
 .enterLeft {
-  opacity: 1;
-  transform: translateX(-100%);
+   opacity: 1;
+   transform: translateX(-100%);
 }
 
 .hidden {
-  opacity: 0;
-  transform: translateX(100%);
+   opacity: 0;
+   transform: translateX(100%);
 }
 
 /* 📜 Text Section */
 .textSection {
-  position: relative;
-  max-width: 40%;
-  color: #fff;
-  text-align: left;
-  z-index: 3;
+   position: relative;
+   max-width: 40%;
+   color: #fff;
+   text-align: left;
+   z-index: 3;
 }
 
 /* 🔥 Title */
 .title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-transform: uppercase;
+   font-size: 2.5rem;
+   font-weight: bold;
+   text-transform: uppercase;
 }
 
 /* 🔴 Order Button */
 .orderButton {
-  background-color: red;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s ease-in-out;
+   background-color: red;
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   font-size: 1.2rem;
+   cursor: pointer;
+   margin-top: 20px;
+   transition: 0.3s ease-in-out;
 }
 
 .orderButton:hover {
-  background-color: darkred;
+   background-color: darkred;
 }
 
 /* 🎨 Image Section */
 .imageSection {
-  position: relative;
-  width: 600px;
-  height: 400px;
-  z-index: 3;
+   position: relative;
+   width: 600px;
+   height: 400px;
+   z-index: 3;
 }
 
 /* 📸 Image Styling */
 .image {
-  width: 100%;
-  height: auto;
-  transition: transform 0.2s ease-in-out;
+   width: 100%;
+   height: auto;
+   transition: transform 0.2s ease-in-out;
 }
 
 /* 🚀 Shake Effect on Hover */
 .image:hover {
-  animation: shake 0.3s ease-in-out infinite alternate;
+   animation: shake 0.3s ease-in-out infinite alternate;
 }
 
 /* 🎭 Shake Animation */
 @keyframes shake {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-3px) rotate(-1deg); }
-  50% { transform: translateX(3px) rotate(1deg); }
-  75% { transform: translateX(-2px) rotate(-1deg); }
-  100% { transform: translateX(2px) rotate(1deg); }
+   0% {
+      transform: translateX(0);
+   }
+   25% {
+      transform: translateX(-3px) rotate(-1deg);
+   }
+   50% {
+      transform: translateX(3px) rotate(1deg);
+   }
+   75% {
+      transform: translateX(-2px) rotate(-1deg);
+   }
+   100% {
+      transform: translateX(2px) rotate(1deg);
+   }
 }
-
 
 /* 🚀 Popular Food Section - No Extra Space */
 .popularFoodContainer {
-  padding: 20px 0;
-  background: #222;
-  color: white;
-  text-align: center;
-  overflow: hidden;
-  position: relative;
+   padding: 20px 0;
+   background: #222;
+   color: white;
+   text-align: center;
+   overflow: hidden;
+   position: relative;
 }
 
 /* 🏷️ Section Title */
 .sectionTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+   font-size: 2rem;
+   font-weight: bold;
+   text-transform: uppercase;
+   margin-bottom: 10px;
 }
 
 /* 🍔 Food Slider - Continuous Left Movement */
 .foodSlider {
-  display: flex;
-  gap: 20px;
-  animation: moveLeft 10s linear infinite;
-  width: max-content; /* Prevents blank space */
+   display: flex;
+   gap: 20px;
+   animation: moveLeft 10s linear infinite;
+   width: max-content; /* Prevents blank space */
 }
 
 /* 🔁 Animation: Moves All Items Left Infinitely */
 @keyframes moveLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-25%); } /* Moves images left seamlessly */
+   0% {
+      transform: translateX(0);
+   }
+   100% {
+      transform: translateX(-25%);
+   } /* Moves images left seamlessly */
 }
 
 /* 🍕 Food Item - Inline for Infinite Loop */
 .foodItem {
-  position: relative;
-  width: 170px;
-  height: 170px;
-  text-align: center;
-  display: inline-block;
+   position: relative;
+   width: 170px;
+   height: 170px;
+   text-align: center;
+   display: inline-block;
 }
 
 /* 🔵 Dotted Outer Circle (Rotates, Image Fixed Inside) */
-.foodItem .outerCircle {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  border: 3px dotted #ff4500;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: rotateCircle 5s linear infinite;
+.foodItem .outerCircle1 {
+   width: 160px;
+   height: 160px;
+   border-radius: 50%;
+   border: 3px dotted #ff4500;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   animation: rotateCircle 5s linear infinite;
 }
 
 /* 🔄 Animation: Outer Circle Rotates */
 @keyframes rotateCircle {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+   0% {
+      transform: translate(-50%, -50%) rotate(0deg);
+   }
+   100% {
+      transform: translate(-50%, -50%) rotate(360deg);
+   }
 }
 
 /* 🍟 Fixed Image (Centered Inside Rotating Circle) */
 .foodImage {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  border: 3px solid white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+   width: 140px;
+   height: 140px;
+   border-radius: 50%;
+   border: 3px solid white;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
 }
 
 /* 📜 Food Text Scrolls Smoothly */
 .foodText {
-  margin-top: 135px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  background:transparent;
-  padding: 30px 7px;
-  border-radius: 3px;
-  color: rgb(249, 246, 246);
-  position: relative;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+   margin-top: 135px;
+   font-size: 0.9rem;
+   font-weight: bold;
+   background: transparent;
+   padding: 30px 7px;
+   border-radius: 3px;
+   color: rgb(249, 246, 246);
+   position: relative;
+   opacity: 0;
+   transform: translateY(40px);
+   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
 /* ✅ Text Appears with Smooth Scroll Up */
 .foodText.visible {
-  opacity: 1;
-  transform: translateY(0);
+   opacity: 1;
+   transform: translateY(0);
 }
 
 /* ❌ Text Disappears with Smooth Scroll Down */
 .foodText.hidden {
-  opacity: 0;
-  transform: translateY(20px);
+   opacity: 0;
+   transform: translateY(20px);
 }
 
 /* 🔥 Special Offers Section */
 .specialOffersContainer {
-  padding: 20px;
-  background: #bfb3a4;
-  text-align: center;
+ 
+   background: #bfb3a4;
+   text-align: center;
 }
 
 /* 📦 Grid Layout for Cards */
@@ -221,65 +238,191 @@
   display: flex;
   justify-content: center;
   gap: 20px;
+  flex-wrap: wrap; /* ✅ Allow items to wrap in smaller screens */
 }
+
 
 /* 🏷️ Offer Card Styling */
 .offerCard {
-  position: relative;
-  background: linear-gradient(45deg, black, gray, rgb(179, 179, 179));
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  text-align: center;
-  width: 300px;
+   position: relative;
+   background: linear-gradient(45deg, black, gray, rgb(179, 179, 179));
+   border-radius: 10px;
+   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+   padding: 15px;
+   text-align: center;
+   width: 300px;
 }
 
 /* 🖼️ Offer Image */
 .offerImage {
-  width: 100%;
-  border-radius: 10px;
+   width: 100%;
+   border-radius: 10px;
 }
 
 /* 🔥 50% OFF Badge */
 .offerBadge {
-  position: absolute;
-  top: 10px;
-  left: 10px; /* ✅ Changed from 'right' to 'left' */
-  width: 60px;
-  height: 90px;
-  animation: shake 0.5s ease-in-out infinite alternate;
+   position: absolute;
+   top: 10px;
+   left: 10px; /* ✅ Changed from 'right' to 'left' */
+   width: 60px;
+   height: 90px;
+   animation: shake 0.5s ease-in-out infinite alternate;
 }
 /* 🚀 Shake Animation for 50% OFF */
 @keyframes shake {
-  0% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-  100% { transform: rotate(-5deg); }
+   0% {
+      transform: rotate(-5deg);
+   }
+   50% {
+      transform: rotate(5deg);
+   }
+   100% {
+      transform: rotate(-5deg);
+   }
 }
 /* 📜 Offer Text */
 .offerText {
-  padding: 10px;
+   padding: 10px;
 }
 
 /* 🏆 Title and Subtitle */
 .subtitle {
-  color: rgb(237, 234, 234);
-  font-weight: bold;
+   color: rgb(237, 234, 234);
+   font-weight: bold;
 }
 
 .offerTitle {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: aliceblue;
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: aliceblue;
 }
 
 .description {
-  font-size: 1rem;
-  color: #eae5e5;
-  margin-bottom: 10px;
+   font-size: 1rem;
+   color: #eae5e5;
+   margin-bottom: 10px;
 }
 
 /* 🔴 Order Button */
 .orderButton {
+   background-color: red;
+   color: white;
+   border: none;
+   padding: 10px 20px;
+   font-size: 1.2rem;
+   cursor: pointer;
+   transition: 0.3s ease-in-out;
+   border-radius: 5px;
+}
+
+.orderButton:hover {
+   background-color: transparent;
+}
+
+@media (max-width: 768px) {
+  .specialOffersGrid {
+     flex-direction: column; /* ✅ Stack items vertically */
+     align-items: center; /* ✅ Center align cards */
+  }
+
+  .offerCard {
+     width: 90%; /* ✅ Adjust width to fit smaller screens */
+     max-width: 350px; /* ✅ Prevent it from being too large */
+  }
+}
+
+.heroContainer1 {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   position: relative;
+   text-align: center;
+   background-color: #969393;
+   padding: 80px 0; /* Increase padding */
+   min-height: 550px; /* Increase height */
+}
+
+.description1 {
+   font-size: 18px;
+   color: #ffffff;
+   margin: 15px auto; /* Center the text block */
+   line-height: 1.6; /* Adjust spacing between lines */
+   max-width: 500px; /* Control text width */
+   text-align: center; /* Center text */
+   display: -webkit-box;
+   -webkit-line-clamp: 4; /* Limit to 4 lines */
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+.title1 {
+   font-size: 32px;
+   font-weight: bold;
+   color: #ffffff;
+   text-align: center; /* Center title */
+   max-width: 600px; /* Limit width */
+   line-height: 1.4; /* Adjust line spacing */
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* Limit to 2 lines */
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+}
+
+.leftImageContainer {
+   position: absolute;
+   left: 0; /* Stick to the left corner */
+   top: 50%;
+   transform: translateY(-50%); /* Center vertically */
+}
+
+.rightImageContainer {
+   position: absolute;
+   right: 0; /* Stick to the right corner */
+   top: 50%;
+   transform: translateY(-50%); /* Center vertically */
+}
+
+.curvedImage {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   position: relative;
+   z-index: 1;
+}
+
+.circularImageWrapper1{
+  position: absolute;
+  width: 150px; /* Adjust size */
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  top: 50%;  /* Align center vertically */
+  left: 100%; /* Align center horizontally */
+  transform: translate(-50%, -50%); /* Perfect centering */
+}
+
+.circularImageWrapper2 {
+  position: absolute;
+  width: 150px; /* Adjust size */
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  top: 50%;  /* Align center vertically */
+  left: 0%; /* Align center horizontally */
+  transform: translate(-50%, -50%); /* Perfect centering */
+}
+.circularImage1 {
+   width: 100%;
+   height: 100%;
+   border-radius: 50%;
+   animation: rotateCircle 5s linear infinite;
+}
+.orderButton1 {
   background-color: red;
   color: white;
   border: none;
@@ -289,12 +432,37 @@
   transition: 0.3s ease-in-out;
   border-radius: 5px;
 }
+.orderButton1:hover {
+  background-color: transparent;
+  color: black;
+}
 
+/* Animation for rotation */
+@keyframes rotateCircle {
+   from {
+      transform: rotate(0deg);
+   }
+   to {
+      transform: rotate(360deg);
+   }
+}
 
-.orderButton:hover {
-  background-color: transparent;}
+@media (max-width: 768px) {
+   .leftImageContainer,
+   .rightImageContainer {
+      width: 250px;
+      height: 230px;
+   }
 
-  
+   .circularImageWrapper {
+      width: 80px;
+      height: 80px;
+   }
+}
 
-
-  
+@media (max-width: 480px) {
+   .leftImageContainer,
+   .rightImageContainer {
+      display: none;
+   }
+}
