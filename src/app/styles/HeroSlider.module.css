@@ -343,14 +343,14 @@
 }
 
 .description1 {
-   font-size: 18px;
+   font-size: 16px;
    color: #ffffff;
    margin: 15px auto; /* Center the text block */
-   line-height: 1.6; /* Adjust spacing between lines */
+  
    max-width: 500px; /* Control text width */
    text-align: center; /* Center text */
    display: -webkit-box;
-   -webkit-line-clamp: 4; /* Limit to 4 lines */
+   -webkit-line-clamp: 5; /* Limit to 4 lines */
    -webkit-box-orient: vertical;
    overflow: hidden;
    text-overflow: ellipsis;
