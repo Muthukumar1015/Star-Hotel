@@ -74,12 +74,14 @@ function PopularFoodItems() {
     { src: "/images/item1.png", alt: "Food Item 1", text: "Delicious Burger" },
     { src: "/images/item2.png", alt: "Food Item 2", text: "Crispy Fries" },
     { src: "/images/item3.png", alt: "Food Item 3", text: "Cheesy Pizza" },
-    { src: "/images/item4.png", alt: "Food Item 4", text: "Tasty Pasta" }
+    { src: "/images/item4.png", alt: "Food Item 4", text: "Tasty Pasta" },
+    { src: "/images/item1.png", alt: "Food Item 1", text: "Delicious Burger" },
+    { src: "/images/item2.png", alt: "Food Item 2", text: "Crispy Fries" }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 300) {
+      if (window.scrollY > 100) {
         setTextVisible(true);
       } else {
         setTextVisible(false);

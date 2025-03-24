@@ -12,15 +12,15 @@ export default function Footer() {
         <div className="row text-center">
           <div className="col-md-4">
             <h6>Address</h6>
-            <p>4648 Rocky Road Philadelphia</p>
+            <p>Dubai Kuruku Sandhu</p>
           </div>
           <div className="col-md-4">
             <h6>Send Email</h6>
-            <p>info@example.com</p>
+            <p>vanakam da mapla.@gmail.com</p>
           </div>
           <div className="col-md-4">
             <h6>Call Emergency</h6>
-            <p>+88 0123 654 99</p>
+            <p>+91 8148835997</p>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function Footer() {
 
       {/* Bottom Section */}
       <div className={`text-center py-3 ${styles.footerBottom}`}>
-        <small>&copy; All Copyright 2024 by FreshEat</small>
+        <small>&copy; All Copyright 2024 by Mk</small>
         <div className="d-inline ms-3">
           <a href="#" className="btn btn-sm btn-light me-2">Terms & Condition</a>
           <a href="#" className="btn btn-sm btn-light">Privacy Policy</a>
