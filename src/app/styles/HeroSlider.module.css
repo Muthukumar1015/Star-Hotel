@@ -204,7 +204,7 @@
 /* 📜 Food Text Scrolls Smoothly */
 .foodText {
    margin-top: 135px;
-   font-size: 0.9rem;
+   font-size: 20px;
    font-weight: bold;
    background: transparent;
    padding: 30px 7px;
@@ -231,7 +231,7 @@
 /* 🔥 Special Offers Section */
 .specialOffersContainer {
   margin-top: 50px;
-  background-color: #bfb3a4;
+  background-color: #8f8c89;
    text-align: center;
 }
 
@@ -340,7 +340,7 @@
    justify-content: center;
    position: relative;
    text-align: center;
-   background-color: #bfb3a4;   padding: 80px 0; /* Increase padding */
+   background-color: #a19e99;   padding: 80px 0; /* Increase padding */
    min-height: 550px; /* Increase height */
 }
 
@@ -467,4 +467,109 @@
    .rightImageContainer {
       display: none;
    }
+}
+
+
+
+
+/* Best Selling Dishes Section */
+.best-selling-container {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #fff5e5;
+  position: relative;
+}
+
+.section-title {
+  font-size: 18px;
+  color: #ff6347;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.section-heading {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.dishes-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dish-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  width: 180px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.dish-card:hover {
+  transform: scale(1.05);
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.dish-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.price {
+  color: #ff4500;
+  font-weight: bold;
+}
+
+.view-all {
+  margin-top: 30px;
+  padding: 12px 24px;
+  border: none;
+  background: #ff4500;
+  color: white;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.view-all:hover {
+  background: #d63d00;
+}
+
+/* Floating Decorative Images */
+.floating-image {
+  position: absolute;
+  width: 80px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.top-right {
+  top: 10px;
+  right: 20px;
+}
+
+.bottom-left {
+  bottom: 10px;
+  left: 20px;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }

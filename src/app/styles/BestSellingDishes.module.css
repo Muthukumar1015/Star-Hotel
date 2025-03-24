@@ -1,0 +1,156 @@
+.bestSellingDishes {
+   text-align: center;
+   padding: 50px;
+   position: relative;
+   background-color: #f8f1e6;
+ }
+ 
+ /* Background images */
+ .bottomLeftImage {
+   position: absolute;
+   bottom: -10px;
+   left: 10px;
+   width: 100px;
+ }
+ 
+ .topRightImage {
+   position: absolute;
+   top: 10px;
+   right: 20px;
+   width: 150px;
+   animation: shake 2s infinite alternate ease-in-out;
+ }
+ 
+ @keyframes shake {
+   0% { transform: rotate(0deg); }
+   100% { transform: rotate(5deg); }
+ }
+ 
+ /* Heading styles */
+ .popularText {
+   font-size: 18px;
+   color: #ff5733;
+   font-weight: bold;
+ }
+ 
+ .heading {
+   font-size: 32px;
+   font-weight: bold;
+   color: #000;
+   margin-bottom: 30px;
+ }
+ 
+ /* Dish container */
+ .dishContainer {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr); /* 5 per row by default */
+   gap: 20px;
+ }
+ 
+ /* Dish Card */
+ .dishCard {
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 10px;
+   text-align: center;
+   width: 180px;
+   transition: 0.3s ease-in-out;
+   position: relative;
+   cursor: pointer;
+   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+ }
+ 
+ /* Hover effect */
+ .dishCard:hover {
+   background: url('/images/Hover-bg.png') no-repeat center center;
+   background-size: cover;
+   color: #f8f1e6;
+ }
+ 
+ .dishCard img {
+   width: 100px;
+   height: 100px;
+   border-radius: 50%;
+ }
+ 
+ /* Dish Name */
+ .dishName {
+   font-size: 18px;
+   font-weight: bold;
+   margin-top: 10px;
+ }
+ 
+ /* Price */
+ .dishPrice {
+   font-size: 16px;
+   font-weight: bold;
+   color: red;
+ }
+ 
+ /* Icons (Initially hidden and positioned slightly outside the card) */
+.hoverIcons {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   opacity: 0;
+   transform: translateY(15px); /* Move slightly to the right */
+   transition: opacity 0.3s ease, transform 0.9s ease;
+ }
+ 
+ .heartIcon, .cartIcon {
+   font-size: 25px;
+   color: #ff0000;
+   background: #fff;
+   padding: 5px;
+   border-radius: 50%;
+   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+   transition: transform 0.2s ease;
+ }
+ 
+ /* Show icons smoothly on hover */
+ .dishCard:hover .hoverIcons {
+   opacity: 1;
+   transform: translateX(0); /* Moves into view */
+ }
+ 
+ /* Slight bounce effect when hovered */
+ .heartIcon:hover, .cartIcon:hover {
+   transform: scale(1.2);
+ }
+ 
+ /* First Card Special Hover Effect */
+ .dishCard:first-child:hover {
+   background: url('/images/Hover-bg.png') no-repeat center center;
+   background-size: cover;
+   color: whitesmoke;
+ }
+ 
+ /* View All Button */
+ .viewAllBtn {
+   background: red;
+   color: #fff;
+   padding: 10px 20px;
+   border: none;
+   font-size: 16px;
+   cursor: pointer;
+   margin-top: 20px;
+   border-radius: 5px;
+   transition: 0.3s;
+ }
+ 
+ .viewAllBtn:hover {
+   background: darkred;
+ }
+ /* Responsive: 1 per row on small screens */
+@media (max-width: 768px) {
+   .dishContainer {
+     grid-template-columns: 1fr; /* Single column */
+   }
+ 
+   .dishCard {
+     width: 100%; /* Full width */
+   }
+ }
