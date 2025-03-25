@@ -44,13 +44,20 @@ export default function CustomNavbar() {
   {["Home", "About Us", "Shop", "Pages", "Blog", "Contact Us"].map((item, index) => (
     <Nav.Link
       key={index}
-      href={item === "Shop" ? "/shop" : `/${item.toLowerCase().replace(/\s/g, "")}`} 
+      href={
+        item === "Shop"
+          ? "/shop"
+          : item === "Contact Us"
+          ? "/ContactUs"  // Set the correct path for Contact Us
+          : `/${item.toLowerCase().replace(/\s/g, "")}`
+      }
       className="fw-semibold"
     >
-      {item} <span className="text-danger fw-bold">+</span>
+      {item} 
     </Nav.Link>
   ))}
 </Nav>
+
 
 
             {/* 🔎 Search Box */}

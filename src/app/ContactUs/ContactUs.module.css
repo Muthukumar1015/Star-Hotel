@@ -1,0 +1,113 @@
+.contactSection {
+   background: #f8f5f0;
+   padding: 50px 0;
+}
+
+.container {
+   max-width: 1200px;
+   margin: auto;
+   padding: 0 20px;
+}
+
+/* Contact Info Boxes */
+.infoBoxes {
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 40px;
+}
+
+.infoBox {
+   background: #fff;
+   padding: 20px;
+   text-align: center;
+   width: 22%;
+   border-radius: 10px;
+   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+   font-size: 24px;
+   color: red;
+   display: block;
+   margin-bottom: 10px;
+}
+
+.infoBox h4 {
+   font-weight: bold;
+   margin-bottom: 10px;
+}
+
+/* Contact Form */
+.contactWrapper {
+   display: flex;
+   align-items: center;
+   background: white;
+   border-radius: 10px;
+   padding: 30px;
+   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.imageSection {
+   flex: 1;
+   padding-right: 30px;
+}
+
+.imageSection img {
+   width: 100%;
+   border-radius: 10px;
+}
+
+.formSection {
+   flex: 1;
+}
+
+.formSection h3 {
+   font-size: 22px;
+   font-weight: bold;
+   margin-bottom: 20px;
+}
+
+.inputGroup {
+   display: flex;
+   gap: 10px;
+   margin-bottom: 15px;
+}
+
+/* ✅ FIXED: Scoped styles to avoid Next.js build error */
+.formSection input,
+.formSection select,
+.formSection textarea {
+   width: 100%;
+   padding: 12px;
+   border: 1px solid #ddd;
+   border-radius: 5px;
+   font-size: 14px;
+}
+
+.formSection textarea {
+   min-height: 100px;
+   resize: none;
+}
+
+.checkboxContainer {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   margin: 15px 0;
+}
+
+.submitBtn {
+   background: red;
+   color: white;
+   padding: 12px;
+   width: 100%;
+   border: none;
+   font-size: 16px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+.submitBtn:hover {
+   background: darkred;
+}
