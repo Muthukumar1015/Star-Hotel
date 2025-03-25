@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Navbar, Nav, Container, Button, Badge } from 'react-bootstrap';
-import { FaShoppingCart, FaSearch, FaFacebookF, FaClock, FaBars } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useDispatch, useSelector } from "react-redux";
+import { openLoginPopup, closeLoginPopup } from "@/app/store/authSlice";
+import { Navbar, Nav, Container, Button, Modal } from "react-bootstrap";
+import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function CustomNavbar() {
-  const [cartCount, setCartCount] = useState(2); // Replace with Redux if needed
+  const dispatch = useDispatch();
+  const isLoginPopupOpen = useSelector((state) => state.auth.isLoginPopupOpen);
 
   return (
     <>
@@ -43,14 +45,15 @@ export default function CustomNavbar() {
             <div className="d-flex align-items-center">
               <FaSearch className="text-white mx-3" style={{ cursor: 'pointer' }} />
 
-              {/* Cart Icon with Badge */}
-              <div className="position-relative mx-3">
-                <FaShoppingCart className="text-white" size={20} />
-                {cartCount > 0 && (
-                  <Badge bg="danger" pill className="position-absolute top-0 start-100 translate-middle">
-                    {cartCount}
-                  </Badge>
-                )}
+              {/* Cart & Login Icons */}
+              <div className="d-flex align-items-center mx-3">
+                <FaShoppingCart className="text-white mx-3" size={20} style={{ cursor: 'pointer' }} />
+                <FaUser
+                  className="text-white mx-3"
+                  size={20}
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => dispatch(openLoginPopup())} // Open login popup
+                />
               </div>
 
               {/* 🔴 Order Now Button */}
@@ -61,6 +64,19 @@ export default function CustomNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+
+      {/* 🔵 Login Popup */}
+      <Modal show={isLoginPopupOpen} onHide={() => dispatch(closeLoginPopup())} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Login Required</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>You need to login before making a purchase.</p>
+          <Button variant="primary" onClick={() => alert("Redirect to Login Page")}>
+            Go to Login
+          </Button>
+        </Modal.Body>
+      </Modal>
     </>
   );
 }
