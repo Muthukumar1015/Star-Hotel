@@ -1,14 +1,12 @@
-"use client";
+'use client';
 
-import { useDispatch, useSelector } from "react-redux";
-import { openLoginPopup, closeLoginPopup } from "@/app/store/authSlice";
-import { Navbar, Nav, Container, Button, Modal } from "react-bootstrap";
-import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { useRouter } from 'next/navigation'; // Import useRouter
+import { Navbar, Nav, Container, Button } from 'react-bootstrap';
+import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from 'react-icons/fa';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function CustomNavbar() {
-  const dispatch = useDispatch();
-  const isLoginPopupOpen = useSelector((state) => state.auth.isLoginPopupOpen);
+  const router = useRouter(); // Initialize router
 
   return (
     <>
@@ -46,13 +44,15 @@ export default function CustomNavbar() {
               <FaSearch className="text-white mx-3" style={{ cursor: 'pointer' }} />
 
               {/* Cart & Login Icons */}
-              <div className="d-flex align-items-center mx-3">
+              <div className="d-flex align-items-center mx-3 position-relative">
                 <FaShoppingCart className="text-white mx-3" size={20} style={{ cursor: 'pointer' }} />
-                <FaUser
-                  className="text-white mx-3"
-                  size={20}
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => dispatch(openLoginPopup())} // Open login popup
+
+                {/* 👤 Login Icon (Navigates to Login Page) */}
+                <FaUser 
+                  className="text-white mx-3" 
+                  size={20} 
+                  style={{ cursor: 'pointer' }} 
+                  onClick={() => router.push('/Login')} // Navigate to Login Page
                 />
               </div>
 
@@ -64,19 +64,6 @@ export default function CustomNavbar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
-      {/* 🔵 Login Popup */}
-      <Modal show={isLoginPopupOpen} onHide={() => dispatch(closeLoginPopup())} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Login Required</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>You need to login before making a purchase.</p>
-          <Button variant="primary" onClick={() => alert("Redirect to Login Page")}>
-            Go to Login
-          </Button>
-        </Modal.Body>
-      </Modal>
     </>
   );
 }

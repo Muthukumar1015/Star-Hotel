@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoginPopupOpen: false,
+  user: null, // Stores logged-in user details
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    openLoginPopup: (state) => {
-      state.isLoginPopupOpen = true;
+    login: (state, action) => {
+      state.user = action.payload; // Save user details
     },
-    closeLoginPopup: (state) => {
-      state.isLoginPopupOpen = false;
+    logout: (state) => {
+      state.user = null; // Clear user on logout
     },
   },
 });
 
-export const { openLoginPopup, closeLoginPopup } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

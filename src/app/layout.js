@@ -1,7 +1,7 @@
 "use client";
 
 import { Provider } from "react-redux";
-import store from "@/app/store/store"; // Correct import
+import store from "@/app/store/store";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 
