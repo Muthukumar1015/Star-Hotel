@@ -1,12 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation'; // Import useRouter
-import { Navbar, Nav, Container, Button } from 'react-bootstrap';
-import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from 'react-icons/fa';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Navbar, Nav, Container, Button, Form, FormControl } from "react-bootstrap";
+import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from "react-icons/fa";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function CustomNavbar() {
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${searchQuery.trim()}`);
+    }
+  };
 
   return (
     <>
@@ -31,30 +40,44 @@ export default function CustomNavbar() {
           </Navbar.Toggle>
 
           <Navbar.Collapse id="navbar-nav">
-            <Nav className="mx-auto text-center">
-              {["Home", "About Us", "Shop", "Pages", "Blog", "Contact Us"].map((item, index) => (
-                <Nav.Link key={index} href={`/${item.toLowerCase().replace(/\s/g, '')}`} className="fw-semibold">
-                  {item} <span className="text-danger fw-bold">+</span>
-                </Nav.Link>
-              ))}
-            </Nav>
+          <Nav className="mx-auto text-center">
+  {["Home", "About Us", "Shop", "Pages", "Blog", "Contact Us"].map((item, index) => (
+    <Nav.Link
+      key={index}
+      href={item === "Shop" ? "/shop" : `/${item.toLowerCase().replace(/\s/g, "")}`} 
+      className="fw-semibold"
+    >
+      {item} <span className="text-danger fw-bold">+</span>
+    </Nav.Link>
+  ))}
+</Nav>
+
+
+            {/* 🔎 Search Box */}
+            <Form className="d-flex mx-3" onSubmit={handleSearch}>
+              <FormControl
+                type="text"
+                placeholder="Search..."
+                className="me-2"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Button variant="outline-light" type="submit">
+                <FaSearch />
+              </Button>
+            </Form>
 
             {/* 🛒 Right Icons */}
             <div className="d-flex align-items-center">
-              <FaSearch className="text-white mx-3" style={{ cursor: 'pointer' }} />
+              <FaShoppingCart className="text-white mx-3" size={20} style={{ cursor: "pointer" }} />
 
-              {/* Cart & Login Icons */}
-              <div className="d-flex align-items-center mx-3 position-relative">
-                <FaShoppingCart className="text-white mx-3" size={20} style={{ cursor: 'pointer' }} />
-
-                {/* 👤 Login Icon (Navigates to Login Page) */}
-                <FaUser 
-                  className="text-white mx-3" 
-                  size={20} 
-                  style={{ cursor: 'pointer' }} 
-                  onClick={() => router.push('/Login')} // Navigate to Login Page
-                />
-              </div>
+              {/* 👤 Login Icon */}
+              <FaUser 
+                className="text-white mx-3" 
+                size={20} 
+                style={{ cursor: "pointer" }} 
+                onClick={() => router.push("/Login")} 
+              />
 
               {/* 🔴 Order Now Button */}
               <Button variant="danger" className="ms-3 px-4 fw-bold">
