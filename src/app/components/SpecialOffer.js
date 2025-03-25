@@ -52,10 +52,6 @@ const SpecialOffer = () => {
 <img src="/images/bargar oofer.png" alt="Burger" className={styles.mainImage} />
 
 
-
-
-
-
       {/* Right Side - Offer Content */}
       <div className={styles.offerContent}>
         <p className={styles.specialOfferTitle}>🔥 SPECIAL OFFER 🔥</p>

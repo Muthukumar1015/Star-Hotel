@@ -8,6 +8,7 @@ import TodaySpecialFood from "../components/TodaySpecialFood";
 import FresheatMenu from "../components/FresheatMenu";
 import ScrollingMenu from "../components/ScrollingMenu";
 import SpecialOffer from "../components/SpecialOffer";
+import ExpertChefs from "../components/ExpertChefs";
 
 
 const slides = [
@@ -87,6 +88,7 @@ export default function HeroSlider() {
          <FresheatMenu />
          <ScrollingMenu />
         <SpecialOffer />
+        <ExpertChefs />
          
       </>
    );

@@ -9,6 +9,7 @@
   background-size: cover;
   position: relative;
   flex-wrap: wrap;
+  margin-top: 50px;
 }
 
 /* Left Side - Images */

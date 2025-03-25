@@ -1,0 +1,178 @@
+.expertChefs {
+   text-align: center;
+   padding: 60px 0;
+   background-color: #f8f5f0;
+ }
+ 
+ .sectionTitle {
+   font-size: 16px;
+   color: #ff5722;
+   font-weight: bold;
+ }
+ 
+ .mainTitle {
+   font-size: 28px;
+   margin-bottom: 40px;
+ }
+ 
+ /* Chef Container */
+ .chefContainer {
+   display: flex;
+   justify-content: center;
+   gap: 30px;
+   flex-wrap: wrap; /* Ensures wrapping on smaller screens */
+ }
+ 
+ /* Chef Card */
+ .chefCard {
+   background: white;
+   border-radius: 10px;
+   padding: 20px;
+   text-align: center;
+   position: relative;
+   overflow: hidden;
+   transition: transform 0.3s ease;
+   width: 300px; /* Default width */
+ }
+ 
+ .chefCard:hover {
+   transform: translateY(-5px);
+ }
+ 
+ /* Chef Image */
+ .chefImage img {
+   width: 200px;
+   height: 200px;
+   border-radius: 50%;
+   object-fit: cover;
+ }
+ 
+ /* Share Container */
+ .shareContainer {
+   position: absolute;
+   bottom: 10px;
+   left: 50%;
+   transform: translateX(-50%);
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   opacity: 0;
+   transition: opacity 0.3s ease;
+ }
+ 
+ /* Show icons on hover */
+ .chefCard:hover .shareContainer {
+   opacity: 1;
+ }
+ 
+ /* Social Icons */
+ .icon {
+   background: white;
+   color: #ff5722;
+   padding: 10px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   text-decoration: none;
+   transition: background 0.3s, transform 0.3s;
+   font-size: 14px;
+ }
+ 
+ /* Position LinkedIn to the left */
+ .linkedin {
+   transform: translateX(-30px);
+ }
+ 
+ /* Position Facebook to the right */
+ .facebook {
+   transform: translateX(30px);
+ }
+ 
+ /* Center Share Icon */
+ .shareIcon {
+   background: #ff5722;
+   color: white;
+   padding: 12px;
+   border-radius: 50%;
+   cursor: pointer;
+   transition: background 0.3s;
+ }
+ 
+ .shareIcon:hover {
+   background: #d84315;
+ }
+ 
+ /* Hover Effect */
+ .icon:hover {
+   background: #ff5722;
+   color: white;
+ }
+ 
+ /* ==================== RESPONSIVE DESIGN ==================== */
+ 
+ /* Tablet View (768px - 1024px) */
+ @media (max-width: 1024px) {
+   .chefContainer {
+     gap: 20px; /* Reduce spacing */
+   }
+   
+   .chefCard {
+     width: 250px; /* Slightly smaller cards */
+   }
+ 
+   .chefImage img {
+     width: 180px;
+     height: 180px;
+   }
+ 
+   .shareContainer {
+     bottom: 15px;
+   }
+ }
+ 
+ /* Mobile View (Below 768px) */
+ @media (max-width: 768px) {
+   .chefContainer {
+     flex-direction: column;
+     align-items: center;
+   }
+ 
+   .chefCard {
+     width: 90%; /* Full width on small screens */
+   }
+ 
+   .chefImage img {
+     width: 160px;
+     height: 160px;
+   }
+ 
+   .shareContainer {
+     bottom: 20px;
+   }
+ 
+   .icon {
+     padding: 8px; /* Smaller icons */
+   }
+ 
+   .shareIcon {
+     padding: 10px;
+   }
+ }
+ 
+ /* Large TV Screens (Above 1440px) */
+ @media (min-width: 1440px) {
+   .chefCard {
+     width: 350px; /* Bigger cards on large screens */
+   }
+ 
+   .chefImage img {
+     width: 220px;
+     height: 220px;
+   }
+ 
+   .shareContainer {
+     bottom: 5px;
+   }
+ }
+ 
