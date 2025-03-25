@@ -9,6 +9,7 @@ import FresheatMenu from "../components/FresheatMenu";
 import ScrollingMenu from "../components/ScrollingMenu";
 import SpecialOffer from "../components/SpecialOffer";
 import ExpertChefs from "../components/ExpertChefs";
+import MovingLogos from "../components/MovingLogos";
 
 
 const slides = [
@@ -89,6 +90,7 @@ export default function HeroSlider() {
          <ScrollingMenu />
         <SpecialOffer />
         <ExpertChefs />
+        <MovingLogos />
          
       </>
    );

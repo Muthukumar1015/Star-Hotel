@@ -4,17 +4,17 @@ import { FaShareAlt, FaFacebookF, FaLinkedinIn } from "react-icons/fa";
 
 const chefs = [
   {
-    name: "Ralph Edwards",
+    name: "WaterMenon Star",
     role: "Chef Lead",
     image: "/images/diwagar.jpeg",
   },
   {
-    name: "Leslie Alexander",
+    name: "Gvm",
     role: "Chef Assistant",
     image: "/images/gvm.jpeg",
   },
   {
-    name: "Ronald Richards",
+    name: "Sotta Thala",
     role: "Chef Assistant",
     image: "/images/Cool-Suresh.jpg",
   },
