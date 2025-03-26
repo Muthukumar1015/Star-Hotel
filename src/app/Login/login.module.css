@@ -15,8 +15,8 @@
   position: absolute;
   width: 550px;
   height: 550px;
-  border-radius: 50%;
-  border: 8px solid transparent;
+  border-radius: 100%;
+  border: 1px solid transparent;
   border-top: 8px solid #00e6ff;
   border-bottom: 8px solid #00e5ff;
   animation: rotate 6s linear infinite;

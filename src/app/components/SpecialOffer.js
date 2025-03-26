@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/SpecialOffer.module.css";
-
+import { useRouter } from "next/navigation";
 const SpecialOffer = () => {
+  const router = useRouter();
   // Countdown Timer State
   const [timeLeft, setTimeLeft] = useState({
     days: 282,
@@ -78,11 +79,12 @@ const SpecialOffer = () => {
         </div>
 
         {/* Order Now Button */}
-        <button className={styles.orderNow}>
+        <button className={styles.orderNow}
+        onClick={() => router.push("/shop")}>
           ORDER NOW <span>➡</span>
         </button>
        
-
+      
 {/* Right-Bottom Floating Image */}
 
       </div>

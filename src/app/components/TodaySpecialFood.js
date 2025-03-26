@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import styles from '../styles/TodaySpecialFood.module.css';
-
+import { useRouter } from "next/navigation";
 const TodaySpecialFood = () => {
+  const router = useRouter(); 
   return (
     <section className={styles.specialFood}>
         <Image 
@@ -22,9 +23,12 @@ const TodaySpecialFood = () => {
         <p className={styles.welcome}>WELCOME FRESHEAT</p>
         <h2 className={styles.heading}>TODAY SPECIAL FOOD</h2>
         <p className={styles.offer}>Limits Time Offer</p>
-        <button className={styles.orderBtn}>
-          ORDER NOW <span>➡</span>
-        </button>
+        <button
+         className={styles.orderBtn}
+         onClick={() => router.push("/shop")} // Navigate to Shop page
+      >
+         ORDER NOW <span>➡</span>
+      </button>
       </div>
 
       {/* Floating Pizza */}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/BestSellingDishes.module.css";
 import { FaHeart, FaShoppingCart } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 const dishes = [
   { id: 1, name: "Chicken Fried Rice", price: "$100.99", img: "/images/dishes1.png" },
@@ -12,7 +13,7 @@ const dishes = [
 
 const BestSellingDishes = () => {
   const [hovered, setHovered] = useState(null);
-
+  const router = useRouter();
   return (
     <div className={styles.bestSellingDishes}>
       {/* Background images */}
@@ -44,7 +45,12 @@ const BestSellingDishes = () => {
         ))}
       </div>
 
-      <button className={styles.viewAllBtn}>View All Items</button>
+      <button
+            className={styles.viewAllBtn}
+            onClick={() => router.push("/shop")}
+         >
+            View All Items
+         </button>
     </div>
   );
 };

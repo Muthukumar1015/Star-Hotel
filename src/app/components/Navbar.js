@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navbar, Nav, Container, Button, Form, FormControl } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, Form, FormControl, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaSearch, FaClock, FaBars, FaUser } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -40,25 +40,37 @@ export default function CustomNavbar() {
           </Navbar.Toggle>
 
           <Navbar.Collapse id="navbar-nav">
-          <Nav className="mx-auto text-center">
-  {["Home", "About Us", "Shop", "Pages", "Blog", "Contact Us"].map((item, index) => (
-    <Nav.Link
-      key={index}
-      href={
-        item === "Shop"
-          ? "/shop"
-          : item === "Contact Us"
-          ? "/ContactUs"  // Set the correct path for Contact Us
-          : `/${item.toLowerCase().replace(/\s/g, "")}`
-      }
-      className="fw-semibold"
-    >
-      {item} 
-    </Nav.Link>
-  ))}
-</Nav>
+            <Nav className="mx-auto text-center">
+              {["Home", "About Us", "Shop", "Blog", "Contact Us"].map((item, index) => (
+                <Nav.Link
+                  key={index}
+                  href={`/${item.toLowerCase().replace(/\s/g, "")}`}
+                  className="fw-semibold"
+                >
+                  {item}
+                </Nav.Link>
+              ))}
 
-
+              {/* 📌 Pages Dropdown with Click Event (All items in One Line) */}
+              <NavDropdown title="Pages" id="pages-dropdown">
+                <div className="d-flex flex-wrap px-3">
+                  {[
+                    { name: "Chef", path: "/chef" },
+                    { name: "Food Menu", path: "/food-menu" },
+                    { name: "Gallery", path: "/gallery" },
+                    { name: "Testimonials", path: "/services/testimonials" },
+                    { name: "Reservation", path: "/services/reservation" },
+                    { name: "FAQs", path: "/services/faqs" },
+                    { name: "My Account", path: "/my-account" },
+                    { name: "404 Page", path: "/404" },
+                  ].map((item, index) => (
+                    <NavDropdown.Item key={index} href={item.path} className="me-3">
+                      {item.name}
+                    </NavDropdown.Item>
+                  ))}
+                </div>
+              </NavDropdown>
+            </Nav>
 
             {/* 🔎 Search Box */}
             <Form className="d-flex mx-3" onSubmit={handleSearch}>
