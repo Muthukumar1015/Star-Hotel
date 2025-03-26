@@ -1,13 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import menuReducer from "./menuSlice";
 import authReducer from "./authSlice"; 
-import productsReducer from "./productsSlice"; // ✅ Added productsSlice
+import productsReducer from "./productsSlice"; 
+import cartReducer from "./cartSlice";  // ✅ Added cartSlice
 
 const store = configureStore({
   reducer: {
     menu: menuReducer,
     auth: authReducer,
-    products: productsReducer,  // ✅ Integrated product state
+    products: productsReducer,
+    cart: cartReducer,  // ✅ Integrated cart state
   },
 });
 

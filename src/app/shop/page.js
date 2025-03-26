@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filterProducts } from "@/app/store/productsSlice";
+import { addToCart } from "@/app/store/cartSlice"; // Import Add to Cart action
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { FaSearch, FaStar, FaTh, FaList } from "react-icons/fa";
+import { FaSearch, FaStar, FaTh, FaList, FaShoppingCart } from "react-icons/fa";
 import styles from "@/app/shop/shop.module.css";
 
 export default function Shop() {
@@ -17,29 +18,33 @@ export default function Shop() {
   const [sortOption, setSortOption] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState("grid"); // "grid" or "list"
-  const productsPerPage = 6;
+  const productsPerPage = 8;
 
   useEffect(() => {
     dispatch(filterProducts({ searchQuery, selectedCategory, priceRange }));
   }, [searchQuery, selectedCategory, priceRange, dispatch]);
 
-  // Sorting logic
   const sortedProducts = [...filteredProducts].sort((a, b) => {
     if (sortOption === "priceLow") return a.price - b.price;
     if (sortOption === "priceHigh") return b.price - a.price;
     return 0;
   });
 
-  // Pagination Logic
   const totalPages = Math.ceil(sortedProducts.length / productsPerPage);
   const displayedProducts = sortedProducts.slice(
     (currentPage - 1) * productsPerPage,
     currentPage * productsPerPage
   );
 
+  // 🛒 Add to Cart Function
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
+    alert(`🛒 ${product.name} added to cart!`);
+  };
+
   return (
     <Container className="mt-4">
-      {/* Search Bar */}
+      {/* 🔍 Search Bar */}
       <Row>
         <Col md={12} className="mb-3">
           <div className="d-flex align-items-center border rounded p-2 bg-light">
@@ -56,9 +61,8 @@ export default function Shop() {
       </Row>
 
       <Row>
-        {/* Sidebar Filters */}
+        {/* 🎯 Sidebar Filters */}
         <Col md={3}>
-          {/* Category Filter */}
           <div className="mb-4">
             <h5 className="fw-bold">Categories</h5>
             {["Chicken", "Cocktail", "Drink"].map((category) => (
@@ -73,7 +77,6 @@ export default function Shop() {
             ))}
           </div>
 
-          {/* Price Range Slider */}
           <div className="mb-4">
             <h5 className="fw-bold">Filter By Price</h5>
             <input
@@ -88,11 +91,9 @@ export default function Shop() {
           </div>
         </Col>
 
-        {/* Product Grid/List */}
+        {/* 🛍 Product Grid/List */}
         <Col md={9}>
-          {/* Sorting & View Toggle */}
           <div className="d-flex justify-content-between align-items-center mb-3">
-            {/* Sorting Dropdown */}
             <Form.Select
               onChange={(e) => setSortOption(e.target.value)}
               className="w-auto"
@@ -102,7 +103,6 @@ export default function Shop() {
               <option value="priceHigh">Price: High to Low</option>
             </Form.Select>
 
-            {/* View Mode Toggle */}
             <div className="d-flex">
               <FaTh
                 className={`${styles.toggleIcon} ${
@@ -119,15 +119,10 @@ export default function Shop() {
             </div>
           </div>
 
-          {/* Product List/Grid View */}
           <Row className={viewMode === "list" ? "flex-column" : ""}>
             {displayedProducts.length > 0 ? (
               displayedProducts.map((product) => (
-                <Col
-                  md={viewMode === "grid" ? 4 : 12}
-                  key={product.id}
-                  className="mb-4"
-                >
+                <Col md={6} lg={4} xl={3} key={product.id} className="mb-4">
                   <Card className={`shadow-sm ${styles.productCard} ${styles[viewMode]}`}>
                     <div className={styles.productImgContainer}>
                       <Card.Img variant="top" src={product.image} className={styles.productImg} />
@@ -142,8 +137,12 @@ export default function Shop() {
                           ))}
                         </div>
                       </div>
-                      <Button variant="danger" className={`order-button ${viewMode === "list" ? "ms-auto" : ""}`}>
-                        Order Now
+                      <Button
+                        variant="danger"
+                        className={`cart-button ${viewMode === "list" ? "ms-auto" : ""}`}
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        🛒 Add to Cart
                       </Button>
                     </Card.Body>
                   </Card>
@@ -154,7 +153,6 @@ export default function Shop() {
             )}
           </Row>
 
-          {/* Pagination */}
           <div className="d-flex justify-content-center mt-4">
             {[...Array(totalPages)].map((_, index) => (
               <Button

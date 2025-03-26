@@ -1,129 +1,206 @@
-/* 🔘 Toggle Icons */
+/* 🛍 Grand Style for the Shop Page */
+
+/* 🟥 Container */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* 🔍 Search Box */
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 2px solid #ff4500;
+  border-radius: 8px;
+  padding: 10px;
+  background: #f8f9fa;
+  transition: 0.3s ease-in-out;
+}
+
+.search-box input {
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  outline: none;
+  flex: 1;
+  background: transparent;
+}
+
+.search-box input:focus {
+  box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+}
+
+/* 🎯 Sidebar Filters */
+.filter-heading {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ff4500;
+}
+
+.form-check-label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.form-range {
+  accent-color: red;
+}
+
+/* 🔘 Toggle View Icons */
 .toggleIcon {
-   font-size: 1.5rem;
-   cursor: pointer;
-   margin-left: 10px;
-   color: gray;
- }
- 
- .toggleIcon.active {
-   color: red;
- }
- 
- /* 🔥 Product Card - Grid View */
- .productCard {
-   transition: 0.3s ease-in-out;
-   border-radius: 10px;
-   overflow: hidden;
- }
- 
- /* 🖼️ Product Image - Grid View */
- .productImgContainer {
-   width: 100%;
-   height: 250px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   overflow: hidden;
- }
- 
- .productImg {
-   max-width: 100%;
-   max-height: 100%;
-   object-fit: cover;
- }
- 
- /* 📝 Product Card - List View */
- .list .productImgContainer {
-   width: 120px;
-   height: 120px;
-   flex-shrink: 0;
-   margin-right: 15px;
- }
- 
- .list .productImg {
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-   border-radius: 8px;
- }
- 
- /* 🎯 List View Card Layout */
- .list .card-body {
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   flex-grow: 1;
- }
- 
- .list .textContent {
-   flex-grow: 1;
- }
- 
- .list .order-button {
-   white-space: nowrap;
- }
- 
- /* 📱 Responsive Design */
- @media (max-width: 768px) {
-   /* 🔹 Adjust Grid View */
-   .productImgContainer {
-     height: 200px;
-   }
- 
-   /* 🔹 Adjust List View */
-   .list .productImgContainer {
-     width: 90px;
-     height: 90px;
-   }
- 
-   .list .productImg {
-     border-radius: 5px;
-   }
- 
-   .list .card-body {
-     flex-direction: column;
-     align-items: flex-start;
-   }
- 
-   .list .order-button {
-     width: 100%;
-     margin-top: 10px;
-   }
- 
-   /* 🔹 Align Filters & Sorting */
-   .d-flex.justify-content-between {
-     flex-direction: column;
-     align-items: flex-start;
-   }
- 
-   .d-flex.justify-content-between .toggleIcon {
-     margin-top: 10px;
-   }
- }
- 
- @media (max-width: 480px) {
-   /* 📌 Even smaller image size */
-   .list .productImgContainer {
-     width: 75px;
-     height: 75px;
-   }
- 
-   .productImgContainer {
-     height: 150px;
-   }
- 
-   .list .card-body {
-     flex-direction: column;
-     align-items: center;
-   }
- 
-   .list .textContent {
-     text-align: center;
-   }
- 
-   .list .order-button {
-     width: 100%;
-   }
- }
- 
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin-left: 10px;
+  color: gray;
+  transition: 0.3s ease-in-out;
+}
+
+.toggleIcon.active {
+  color: #ff4500;
+  transform: scale(1.2);
+}
+
+/* 🛍 Product Card */
+.productCard {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  background: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.productCard:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 10px 25px rgba(255, 69, 0, 0.3);
+}
+
+/* 🍕 Product Image */
+.productImgContainer {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+}
+
+.productImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.productImg:hover {
+  transform: scale(1.1);
+}
+
+/* ⭐ Product Rating */
+.star-rating {
+  font-size: 1rem;
+  display: flex;
+  gap: 3px;
+}
+
+.fa-star {
+  color: gray;
+  transition: 0.3s ease-in-out;
+}
+
+.fa-star.filled {
+  color: gold;
+}
+
+/* 🛒 Grand Add to Cart Button */
+.cart-button {
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(45deg, #ff6347, #ff4500);
+  border: none;
+  color: white;
+}
+
+.cart-button:hover {
+  background: linear-gradient(45deg, #ff4500, #ff5733);
+  transform: scale(1.1);
+  box-shadow: 0px 4px 15px rgba(255, 69, 0, 0.5);
+}
+
+/* 📖 List View Styling */
+.list .productCard {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.list .productImgContainer {
+  width: 30%;
+  height: auto;
+}
+
+.list .textContent {
+  flex: 1;
+  padding: 10px;
+}
+
+/* 🔢 Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  font-size: 1rem;
+  padding: 8px 14px;
+  border-radius: 5px;
+  border: none;
+  background: #ff6347;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s ease-in-out;
+  margin: 0 5px;
+}
+
+.pagination button:hover {
+  background: #ff4500;
+  transform: scale(1.1);
+}
+
+.pagination .active {
+  background: #ff4500;
+  box-shadow: 0px 4px 10px rgba(255, 69, 0, 0.5);
+}
+
+/* 🎭 Smooth Fade-In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.productCard {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🔥 Additional Enhancements */
+@media (max-width: 768px) {
+  .cart-button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .pagination button {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
