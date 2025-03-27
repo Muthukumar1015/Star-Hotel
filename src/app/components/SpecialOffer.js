@@ -5,7 +5,7 @@ const SpecialOffer = () => {
   const router = useRouter();
   // Countdown Timer State
   const [timeLeft, setTimeLeft] = useState({
-    days: 282,
+    days: 100,
     hours: 5,
     minutes: 50,
     seconds: 11,

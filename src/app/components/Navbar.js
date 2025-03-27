@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";  // ✅ Using Next.js Link for navigation
 import { useRouter } from "next/navigation";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
@@ -19,9 +20,9 @@ export default function CustomNavbar() {
   const menuItems = [
     { label: "Home", path: "/" },
     { label: "About Us", path: "/aboutus" },
-    { label: "Shop", path: "/shop" },  // ✅ Fixed
-    { label: "Blog", path: "/blog" },
-    { label: "Contact Us", path: "/ContactUs" },  // ✅ Fixed
+    { label: "Shop", path: "/shop" },
+    { label: "Blog", path: "/blog" },  // ✅ Fixed blog navigation
+    { label: "Contact Us", path: "/ContactUs" },
   ];
 
   return (
@@ -29,7 +30,7 @@ export default function CustomNavbar() {
       <Navbar expand="lg" className="bg-dark navbar-dark">
         <Container fluid>
           {/* 🏠 Logo */}
-          <Navbar.Brand onClick={() => router.push("/")} className="bg-white py-2 px-4">
+          <Navbar.Brand as={Link} href="/" className="bg-white py-2 px-4">
             <img src="/images/logo__mk.png" alt="Logo" height="60" />
           </Navbar.Brand>
 
@@ -41,25 +42,21 @@ export default function CustomNavbar() {
           <Navbar.Collapse id="navbar-nav">
             <Nav className="mx-auto text-center">
               {menuItems.map((item, index) => (
-                <Nav.Link
-                  key={index}
-                  onClick={() => router.push(item.path)}
-                  className="fw-semibold"
-                >
+                <Nav.Link as={Link} href={item.path} key={index} className="fw-semibold">
                   {item.label}
                 </Nav.Link>
               ))}
 
               {/* 🔽 Pages Dropdown Menu */}
               <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
-                <NavDropdown.Item onClick={() => router.push("/chef")}>Chef</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/food-menu")}>Food Menu</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/gallery")}>Gallery</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/testimonials")}>Testimonials</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/reservation")}>Reservation</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/faq")}>FAQ's</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/my-account")}>My Account</NavDropdown.Item>
-                <NavDropdown.Item onClick={() => router.push("/404")}>404 Page</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/chef">Chef</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/food-menu">Food Menu</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/gallery">Gallery</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/testimonials">Testimonials</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/reservation">Reservation</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/my-account">My Account</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/404">404 Page</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 
@@ -104,12 +101,12 @@ export default function CustomNavbar() {
                 )}
               </div>
 
-              {/* 👤 User Profile - ✅ Fixed login navigation */}
+              {/* 👤 User Profile */}
               <FaUser 
                 className="text-white mx-3" 
                 size={20} 
                 style={{ cursor: "pointer" }} 
-                onClick={() => router.push("/login")} // ✅ Now redirects to login page
+                onClick={() => router.push("/Login")}  // ✅ Now redirects to login page
               />
 
               {/* 🔴 Order Now Button */}

@@ -11,7 +11,7 @@ export default function RootLayout({ children }) {
       <body>
         <Provider store={store}>
           <Navbar />
-          {children}
+          <main>{children}</main>  {/* Wrap children in a <main> */}
           <Footer />
         </Provider>
       </body>

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { filterProducts } from "@/app/store/productsSlice";
 import { addToCart } from "@/app/store/cartSlice"; // Import Add to Cart action
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import { FaSearch, FaStar, FaTh, FaList, FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaStar, FaTh, FaList } from "react-icons/fa";
 import styles from "@/app/shop/shop.module.css";
 
 export default function Shop() {
@@ -39,7 +39,6 @@ export default function Shop() {
   // 🛒 Add to Cart Function
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    alert(`🛒 ${product.name} added to cart!`);
   };
 
   return (
@@ -119,35 +118,42 @@ export default function Shop() {
             </div>
           </div>
 
-          <Row className={viewMode === "list" ? "flex-column" : ""}>
-            {displayedProducts.length > 0 ? (
-              displayedProducts.map((product) => (
-                <Col md={6} lg={4} xl={3} key={product.id} className="mb-4">
-                  <Card className={`shadow-sm ${styles.productCard} ${styles[viewMode]}`}>
-                    <div className={styles.productImgContainer}>
-                      <Card.Img variant="top" src={product.image} className={styles.productImg} />
-                    </div>
-                    <Card.Body className={viewMode === "list" ? "d-flex align-items-center" : ""}>
-                      <div className={viewMode === "list" ? styles.textContent : ""}>
-                        <Card.Title>{product.name}</Card.Title>
-                        <Card.Text className="fw-bold text-danger">${product.price.toFixed(2)}</Card.Text>
-                        <div className="mb-2">
-                          {[...Array(5)].map((_, index) => (
-                            <FaStar key={index} color={index < product.rating ? "gold" : "gray"} />
-                          ))}
-                        </div>
-                      </div>
-                      <Button
-                        variant="danger"
-                        className={`cart-button ${viewMode === "list" ? "ms-auto" : ""}`}
-                        onClick={() => handleAddToCart(product)}
-                      >
-                        🛒 Add to Cart
-                      </Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              ))
+          {/* ✅ Proper Grid/List View Handling */}
+          <Row className={viewMode === "list" ? styles.listView : styles.gridView}>
+  {displayedProducts.length > 0 ? (
+    displayedProducts.map((product) => (
+      <Col
+        md={viewMode === "list" ? 12 : 6}
+        lg={viewMode === "list" ? 12 : 4}
+        xl={viewMode === "list" ? 12 : 3}
+        key={product.id}
+        className="mb-4"
+      >
+        <Card className={`shadow-sm ${styles.productCard} ${viewMode === "list" ? styles.listCard : styles.gridCard}`}>
+          <div className={`${styles.productImgContainer} ${viewMode === "list" ? styles.listImgContainer : ""}`}>
+            <Card.Img variant="top" src={product.image} className={`${styles.productImg} ${viewMode === "list" ? styles.listImg : ""}`} />
+          </div>
+          <Card.Body className={viewMode === "list" ? "d-flex align-items-center" : ""}>
+            <div className={viewMode === "list" ? styles.textContent : ""}>
+              <Card.Title>{product.name}</Card.Title>
+              <Card.Text className="fw-bold text-danger">${product.price.toFixed(2)}</Card.Text>
+              <div className="mb-2">
+                {[...Array(5)].map((_, index) => (
+                  <FaStar key={index} color={index < product.rating ? "gold" : "gray"} />
+                ))}
+              </div>
+            </div>
+            <Button
+              variant="danger"
+              className={`cart-button ${viewMode === "list" ? "ms-auto" : ""}`}
+              onClick={() => handleAddToCart(product)}
+            >
+              🛒 Add to Cart
+            </Button>
+          </Card.Body>
+        </Card>
+      </Col>
+    ))
             ) : (
               <p className="text-center fw-bold">No products found.</p>
             )}
