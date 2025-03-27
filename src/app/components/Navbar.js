@@ -49,10 +49,9 @@ export default function CustomNavbar() {
 
               {/* 🔽 Pages Dropdown Menu */}
               <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
-                <NavDropdown.Item as={Link} href="/chef">Chef</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Service">Service</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Gallery">Gallery</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/testimonials">Testimonials</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="Testimonials">Testimonials</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/reservation">Reservation</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Login">My Account</NavDropdown.Item>

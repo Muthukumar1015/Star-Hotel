@@ -20,7 +20,7 @@ export default function Footer() {
           </div>
           <div className="col-md-4">
             <h6>Call Emergency</h6>
-            <p>+91 8148835997</p>
+            <p>+91 8148888888</p>
           </div>
         </div>
       </div>

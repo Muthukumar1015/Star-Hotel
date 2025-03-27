@@ -1,0 +1,116 @@
+/* Testimonials Section */
+.testimonialsSection {
+    background: #f8f5f0;
+    padding: 50px 0;
+  }
+  
+  /* Testimonials Grid */
+  .testimonialsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Testimonial Card */
+  .testimonialCard {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .testimonialCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Different Shapes */
+  .shape1 {
+    border-top-left-radius: 50px;
+  }
+  
+  .shape2 {
+    border-bottom-right-radius: 50px;
+  }
+  
+  .shape3 {
+    border-top-right-radius: 50px;
+  }
+  
+  .shape4 {
+    border-bottom-left-radius: 50px;
+  }
+  
+  /* Testimonial Header */
+  .testimonialHeader {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .testimonialImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .testimonialName {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .testimonialRole {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  /* Star Ratings */
+  .stars {
+    color: #ffcc00;
+  }
+  
+  /* Testimonial Text */
+  .testimonialText {
+    font-size: 14px;
+    color: #444;
+    line-height: 1.5;
+  }
+  
+  /* Quote Icon */
+  .quoteIcon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    color: #ff6600;
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .testimonialsGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .testimonialCard {
+      padding: 15px;
+    }
+  
+    .testimonialText {
+      font-size: 13px;
+    }
+  
+    .testimonialImage {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .quoteIcon {
+      font-size: 20px;
+    }
+  }
+  

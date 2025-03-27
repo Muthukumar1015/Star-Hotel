@@ -1,0 +1,238 @@
+/* Section */
+.reservationSection {
+    background: #f8f5f0;
+    padding: 50px;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+  }
+  
+  /* Contact Info */
+  .contactInfo {
+    flex: 1;
+  }
+  
+  .contactInfo h2 {
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  .contactInfo p {
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .info p {
+    font-size: 14px;
+    margin: 10px 0;
+  }
+  
+  .icons {
+    font-size: 20px;
+  }
+  
+  /* Form Container */
+  .formContainer {
+    flex: 1;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  .formContainer h2 {
+    font-size: 24px;
+  }
+  
+  .highlight {
+    color: red;
+  }
+  
+  .formGroup {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+ /* Common styles for all inputs */
+.inputField {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  /* Unique styling for each input */
+  .dateInput {
+    border-color: #ff6347;
+    background: #fff5f3;
+  }
+  
+  .timeInput {
+    border-color: #ffbf00;
+    background: #fff9e6;
+  }
+  
+  .phoneInput {
+    border-color: #1e90ff;
+    background: #f0f8ff;
+  }
+  
+  .guestInput {
+    border-color: #28a745;
+    background: #e6ffe6;
+  }
+  
+  /* Add focus effect */
+  .inputField:focus {
+    border-color: #333;
+    background: white;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  
+  /* .bookButton {
+    background: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .bookButton:hover {
+    background: darkred;
+  }
+   */
+  /* Popup */
+  .popupOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .popup h3 {
+    margin-bottom: 10px;
+  }
+  
+  .confirmButton {
+    background: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow form to fill container */
+  }
+  
+  /* Ensure form fields take up space */
+  .textarea {
+    flex-grow: 1;
+    height: 100px;
+    resize: none;
+  }
+  
+  /* Push button to bottom */
+  .bookButton {
+    background: red;
+    color: white;
+    padding: 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: auto; /* Pushes the button to the bottom */
+    align-self: center; /* Centers button horizontally */
+    width: 50%; /* Full width */
+    margin-top: 10px;
+  }
+  
+  .bookButton:hover {
+    background: rgb(5, 137, 253);
+  }
+  .icons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .icon {
+    font-size: 35px;
+    color: #fff;
+    background: #ff4d00;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s ease;
+  }
+  
+  .icon:hover {
+    background: #133bee;
+  }
+  
+  /* Responsive Design */
+@media (max-width: 768px) {
+    .reservationSection {
+      padding: 30px 15px;
+    }
+  
+    .container {
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+    .contactInfo, 
+    .formContainer {
+      width: 100%;
+    }
+  
+    .formGroup {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .inputField {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    .bookButton {
+      width: 100%;
+    }
+  
+    .popup {
+      width: 90%;
+    }
+  
+    /* Social Icons */
+    .icons {
+      justify-content: center;
+    }
+  
+    .icon {
+      font-size: 30px;
+      padding: 8px;
+    }
+  }
+      
