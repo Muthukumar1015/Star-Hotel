@@ -1,10 +1,22 @@
 'use client';
 
+import { useState } from 'react';
 import { FaFacebookF, FaLinkedinIn, FaInstagram, FaArrowRight } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import styles from '../styles/Footer.module.css'; // Importing custom CSS
+import styles from '../styles/Footer.module.css';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false); // Checkbox state
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (email.trim() !== '' && isChecked) {
+      setIsPopupOpen(true);
+    }
+  };
+
   return (
     <footer className={`position-relative ${styles.footer}`}>
       {/* Top Orange Section */}
@@ -32,10 +44,10 @@ export default function Footer() {
           <div className="col-md-4">
             <h5 className="fw-bold">FRESHEAT</h5>
             <p>Phasellus ultricies aliquam volutpat ullamcorper laoreet neque.</p>
-            <div className="d-flex">
-              <a href="#" className="text-white me-2"><FaFacebookF /></a>
-              <a href="#" className="text-white me-2"><FaLinkedinIn /></a>
-              <a href="#" className="text-white"><FaInstagram /></a>
+            <div className={`d-flex ${styles.socialIcons}`}>
+              <a href="#" className={styles.icon}><FaFacebookF /></a>
+              <a href="#" className={styles.icon}><FaLinkedinIn /></a>
+              <a href="#" className={styles.icon}><FaInstagram /></a>
             </div>
           </div>
 
@@ -43,11 +55,11 @@ export default function Footer() {
           <div className="col-md-2">
             <h6>Quick Links</h6>
             <ul className="list-unstyled">
-              <li>» <a href="#" className="text-white">About Us</a></li>
-              <li>» <a href="#" className="text-white">Our Gallery</a></li>
-              <li>» <a href="#" className="text-white">Our Blogs</a></li>
-              <li>» <a href="#" className="text-white">FAQ's</a></li>
-              <li>» <a href="#" className="text-white">Contact Us</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Our Gallery</a></li>
+              <li><a href="#">Our Blogs</a></li>
+              <li><a href="#">FAQ's</a></li>
+              <li><a href="#">Contact Us</a></li>
             </ul>
           </div>
 
@@ -55,11 +67,11 @@ export default function Footer() {
           <div className="col-md-2">
             <h6>Our Menu</h6>
             <ul className="list-unstyled">
-              <li>» <a href="#" className="text-white">Burger King</a></li>
-              <li>» <a href="#" className="text-white">Pizza King</a></li>
-              <li>» <a href="#" className="text-white">Fresh Food</a></li>
-              <li>» <a href="#" className="text-white">Vegetable</a></li>
-              <li>» <a href="#" className="text-white">Desserts</a></li>
+              <li><a href="#">Burger King</a></li>
+              <li><a href="#">Pizza King</a></li>
+              <li><a href="#">Fresh Food</a></li>
+              <li><a href="#">Vegetable</a></li>
+              <li><a href="#">Desserts</a></li>
             </ul>
           </div>
 
@@ -68,12 +80,24 @@ export default function Footer() {
             <h6>Contact Us</h6>
             <p>Monday - Friday: <span className="text-warning">8am - 4pm</span></p>
             <p>Saturday: <span className="text-warning">8am - 12am</span></p>
-            <div className={`d-flex ${styles.subscribeBox}`}>
-              <input type="email" placeholder="Your email address" />
-              <button><FaArrowRight /></button>
-            </div>
+            <form onSubmit={handleSubscribe} className={`d-flex ${styles.subscribeBox}`}>
+              <input 
+                type="email" 
+                placeholder="Your email address" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <button type="submit" disabled={!isChecked}><FaArrowRight /></button>
+            </form>
             <div className="mt-2">
-              <input type="checkbox" id="privacy-policy" />
+              <input 
+                type="checkbox" 
+                id="privacy-policy" 
+                checked={isChecked} 
+                onChange={() => setIsChecked(!isChecked)} 
+                required 
+              />
               <label htmlFor="privacy-policy" className="ms-2">
                 I agree to the <a href="#" className="text-warning">Privacy Policy</a>
               </label>
@@ -90,6 +114,17 @@ export default function Footer() {
           <a href="#" className="btn btn-sm btn-light">Privacy Policy</a>
         </div>
       </div>
+
+      {/* Subscription Popup */}
+      {isPopupOpen && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popup}>
+            <h3>Thank You for Subscribing!</h3>
+            <p>We will send you the latest updates to <strong>{email}</strong>.</p>
+            <button className={styles.popupClose} onClick={() => setIsPopupOpen(false)}>OK</button>
+          </div>
+        </div>
+      )}
 
       {/* Floating Image with Animation */}
       <img src="/images/footer-right.png" alt="Decor" className={`${styles.floatingImage}`} />

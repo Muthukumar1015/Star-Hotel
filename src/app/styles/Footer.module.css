@@ -1,62 +1,133 @@
 .footer {
-   background: #0d1318;
-   color: white;
-   padding-top: 40px;
-   margin-top: 40px;
- }
- 
- .footerTop {
-   background: #f26322;
-   color: white;
-   padding: 20px 0;
-   border-radius: 10px;
-   margin-bottom: 30px;
- }
- 
- .footerBottom {
-   background: #dc1616;
-   color: white;
-   padding: 10px 0;
- }
- 
- .floatingImage {
-   position: absolute;
-   top: 10px;
-   right: 0px;
-   width: 150px;
-   animation: shake 2s infinite ease-in-out;
- }
- .list-unstyled:hover{
-   color: #dc1616;
- }
+  background: #0d1318;
+  color: white;
+  padding-top: 40px;
+  margin-top: 40px;
+}
 
+.footerTop {
+  background: #f26322;
+  color: white;
+  padding: 20px 0;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
 
- @keyframes shake {
-   0%, 100% { transform: translateY(0); }
-   50% { transform: translateY(-5px); }
- }
- 
- .subscribeBox {
-   display: flex;
-   align-items: center;
-   border: 1px solid white;
-   border-radius: 5px;
-   overflow: hidden;
- }
- 
- .subscribeBox input {
-   border: none;
-   padding: 8px;
-   flex: 1;
-   background: transparent;
-   color: white;
- }
- 
- .subscribeBox button {
-   background: #f26322;
-   border: none;
-   padding: 8px;
-   cursor: pointer;
-   color: white;
- }
- 
+.footerBottom {
+  background: #dc1616;
+  color: white;
+  padding: 10px 0;
+}
+
+/* Floating Image */
+.floatingImage {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 150px;
+  animation: shake 2s infinite ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Hover Effects */
+.list-unstyled a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.list-unstyled a:hover {
+  color: #f26322;
+  transform: scale(1.1);
+}
+
+/* Social Icons */
+.socialIcons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.icon {
+  font-size: 25px;
+  color: white;
+  background: #ff4d00;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.icon:hover {
+  background: #133bee;
+  transform: scale(1.2);
+}
+
+/* Subscription Box */
+.subscribeBox {
+  display: flex;
+  align-items: center;
+  border: 2px solid white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.subscribeBox input {
+  border: none;
+  padding: 10px;
+  flex: 1;
+  background: transparent;
+  color: white;
+}
+
+.subscribeBox button {
+  background: #f26322;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: 0.3s;
+}
+
+.subscribeBox button:hover {
+  background: #ff4d00;
+  transform: scale(1.1);
+}
+
+/* Popup */
+.popupOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  color: #0d1318;
+}
+
+.popupClose {
+  background: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Subscribe Button Disabled Style */
+.subscribeBox button:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
