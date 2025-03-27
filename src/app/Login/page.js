@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, login, clearError } from "@/app/store/authSlice";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Import useRouter
 import styles from "@/app/Login/login.module.css"; // Import CSS
 
 export default function Auth() {
   const dispatch = useDispatch();
-  const router = useRouter();
+  const router = useRouter(); // Initialize router
   const error = useSelector((state) => state.auth.error);
   const user = useSelector((state) => state.auth.user); // Get logged-in user
 
@@ -23,6 +23,8 @@ export default function Auth() {
 
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [showPopup, setShowPopup] = useState(false); // State for "User not found" popup
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false); // State for login success popup
 
   // Handle input change
   const handleChange = (e) => {
@@ -31,7 +33,7 @@ export default function Auth() {
   };
 
   // Handle Signup & Login
-  const handleAuth = (e) => {
+  const handleAuth = async (e) => {
     e.preventDefault();
     setIsLoggingIn(true);
 
@@ -43,7 +45,7 @@ export default function Auth() {
         return;
       }
 
-      dispatch(register({ 
+      await dispatch(register({ 
         name: formData.name,
         dob: formData.dob,
         email: formData.email,
@@ -58,13 +60,17 @@ export default function Auth() {
       
     } else {
       // Login
-      dispatch(login({ email: formData.email, password: formData.password }));
+      await dispatch(login({ email: formData.email, password: formData.password }));
 
       setTimeout(() => {
         if (error === "User not found. Please register first.") {
-          setIsSignup(true); // Redirect to Signup page
-        } else if (!error && user) {
-          router.push("/"); // Redirect to Home on successful login
+          setShowPopup(true); // Show popup if user is not registered
+        } else if (user) {
+          setShowSuccessPopup(true); // Show success popup
+          setTimeout(() => {
+            setShowSuccessPopup(false);
+            router.push("/dashboard"); // Redirect after success
+          }, 2000);
         }
         setIsLoggingIn(false);
       }, 1500);
@@ -75,6 +81,21 @@ export default function Auth() {
     <div className={styles.loginContainer}>
       {/* Circular Animation */}
       <div className={styles.circularAnimation}></div>
+
+      {/* User Not Found Popup */}
+      {showPopup && (
+        <div className={styles.popup}>
+          <p>User not found. Please register first.</p>
+          <button onClick={() => { setShowPopup(false); setIsSignup(true); }}>OK</button>
+        </div>
+      )}
+
+      {/* Success Popup */}
+      {showSuccessPopup && (
+        <div className={styles.successPopup}>
+          <p>🎉 Login Successful! Redirecting...</p>
+        </div>
+      )}
 
       {/* Login & Signup Forms */}
       <div className={styles.loginForm}>
@@ -100,7 +121,12 @@ export default function Auth() {
               required
             />
             {error && <p className={styles.errorText}>{error}</p>}
-            <p className={styles.forgotPassword}>Forgot your password?</p>
+            
+            {/* Forget Password Link */}
+            <p className={styles.forgotPassword} onClick={() => router.push("/forgot-password")}>
+              Forgot your password?
+            </p>
+
             <button className={styles.loginButton} disabled={isLoggingIn}>
               {isLoggingIn ? "Logging in..." : "Login"}
             </button>

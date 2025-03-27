@@ -96,9 +96,9 @@
 
 /* 📱 Phone Image inside a Square */
 .phoneContainer {
-  width: 250px;
-  height: 250px;
-  background: rgb(116, 102, 102);
+  width: 500px;
+  height: 550px;
+  background:  #ff6a00;
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -107,8 +107,8 @@
 }
 
 .phoneImage {
-  width: 200px;
-  height: 250px;
+  width: 400px;
+  height: 450px;
   animation: shakeSide 2s infinite ease-in-out;
 }
 
