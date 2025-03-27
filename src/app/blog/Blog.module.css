@@ -1,84 +1,127 @@
 .blogSection {
-    background: #f8f5f0;
-    padding: 50px 0;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
+  background: #f8f5f0;
+  padding: 50px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 🌐 Responsive Grid for Mobile */
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default: 3 columns */
+  gap: 20px;
+}
+
+/* 📱 Mobile: Change to 1 or 2 columns */
+@media (max-width: 992px) { /* Tablets */
   .blogGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr); /* 2 Columns */
   }
-  
-  .blogCard {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+}
+
+@media (max-width: 600px) { /* Mobile Phones */
+  .blogGrid {
+    grid-template-columns: repeat(1, 1fr); /* 1 Column */
   }
-  
-  .blogCard:hover {
-    transform: translateY(-5px);
-  }
-  
+}
+
+/* 🏷 Blog Card */
+.blogCard {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.blogCard:hover {
+  transform: translateY(-5px);
+}
+
+/* 🖼 Blog Image */
+.blogCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* 📄 Blog Content */
+.blogContent {
+  padding: 15px;
+}
+
+/* 📅 Date Badge */
+.dateBadge {
+  background: red;
+  color: white;
+  font-size: 14px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* 📝 Blog Meta */
+.blogMeta {
+  font-size: 14px;
+  color: gray;
+  margin: 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  margin-right: 5px;
+  color: #888;
+}
+
+/* 🏷 Blog Hover Effect */
+.blogHoverDetails {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.blogCard:hover .blogHoverDetails {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 📱 Mobile: Blog Card Adjustments */
+@media (max-width: 600px) {
   .blogCard img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+    height: 180px; /* Smaller images */
   }
-  
+
   .blogContent {
-    padding: 15px;
+    padding: 10px; /* Less padding */
   }
-  
+
   .dateBadge {
-    background: red;
-    color: white;
-    font-size: 14px;
-    padding: 5px 10px;
-    border-radius: 3px;
-    display: inline-block;
-    font-weight: bold;
+    font-size: 12px; /* Smaller text */
+    padding: 4px 8px;
   }
-  
+
   .blogMeta {
-    font-size: 14px;
-    color: gray;
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    font-size: 12px;
   }
-  
-  .icon {
-    margin-right: 5px;
-    color: #888;
-  }
-  
-  
+
   .blogHoverDetails {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 15px;
-    font-size: 14px;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-size: 12px;
+    padding: 10px;
   }
-  
-  .blogCard:hover .blogHoverDetails {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
+}
