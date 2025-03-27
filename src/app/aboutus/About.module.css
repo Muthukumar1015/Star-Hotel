@@ -1,228 +1,208 @@
 .aboutSection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 50px;
-    background: linear-gradient(to right, #0c0c0c 50%, #ff6a00 50%);
-    border-radius: 100px 100px 100px 100px; /* Center curve effect */
-    position: relative;
-    overflow: hidden;
-    margin-top: 50px;
-  }
-  
-  /* Left Side Content */
-  .leftContent {
-    color: white;
-    max-width: 45%;
-    padding: 20px;
-  }
-  
-  .leftContent h2 {
-    font-size: 30px;
-    font-weight: bold;
-  }
-  
-  /* Download Buttons */
-  .downloadButtons {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .downloadButton {
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-  }
-  
-  .appStore {
-    background: red;
-    color: white;
-  }
-  
-  .googlePlay {
-    background: black;
-    color: white;
-    border: 1px solid white;
-  }
-  
-  /* Right Side Content */
-  .rightContent {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px;
+  background: linear-gradient(to right, #0c0c0c 50%, #ff6a00 50%);
+  border-radius: 100px;
+  position: relative;
+  overflow: hidden;
+  margin-top: 50px;
+}
+
+/* 📱 Mobile: Change to Column Layout */
+@media (max-width: 992px) {
+  .aboutSection {
     flex-direction: column;
     text-align: center;
+    padding: 40px 20px;
+    border-radius: 50px;
   }
-  
-  /* Phone Image inside a Square */
-  .phoneContainer {
-    width: 250px;
-    height: 250px;
-    background: rgb(116, 102, 102);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+}
+
+/* 📝 Left Content */
+.leftContent {
+  color: white;
+  max-width: 45%;
+  padding: 20px;
+}
+
+/* 📱 Mobile: Adjust Left Content */
+@media (max-width: 992px) {
+  .leftContent {
+    max-width: 100%;
+    text-align: center;
   }
-  
-  .phoneImage {
-    width: 200px;
-    height: 250px;
-    animation: shakeSide 2s infinite ease-in-out;
-  }
-  
-  /* Extra text near phone */
-  .extraText {
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  /* Shake Animation */
-  @keyframes shakeSide {
-    0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(-5px); }
-  }
-  
-  /* Background Food Elements */
-  .foodElement {
-    position: absolute;
-    width: 80px;
-  }
-  
-  .leftTop {
-    top: 0;
-    left: 0;
-  }
-  
-  .leftBottom {
-    bottom: 0;
-    left: 0;
-  }
-  /* Download Buttons */
+}
+
+.leftContent h2 {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* 📲 Download Buttons */
 .downloadButtons {
-    display: flex;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .downloadButton {
-    display: flex;
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* 📱 Mobile: Stack Buttons */
+@media (max-width: 600px) {
+  .downloadButtons {
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    transition: 0.3s ease;
   }
-  
-  .appStore {
-    background: black;
-    color: white;
+}
+
+.downloadButton {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.appStore {
+  background: black;
+  color: white;
+}
+
+.googlePlay {
+  background: #4285F4;
+  color: white;
+}
+
+/* 🎨 Right Side Content */
+.rightContent {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  flex-direction: column;
+  text-align: center;
+}
+
+/* 📱 Mobile: Adjust Right Content */
+@media (max-width: 992px) {
+  .rightContent {
+    width: 100%;
+    margin-top: 30px;
   }
-  
-  .googlePlay {
-    background: #4285F4;
-    color: white;
-  }
-  
-  /* Icon Style */
-  .icon {
-    font-size: 18px;
-  }
-  /* Sub Text */
-.subText {
-    font-size: 16px;
-    color: #ddd;
-    margin-top: 10px;
-    line-height: 1.5;
-  }
-  
-  /* Extra Features Section */
-  .features {
-    display: flex;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .feature {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px 15px;
-    border-radius: 5px;
-  }
-  
-  .featureIcon {
-    font-size: 18px;
-    color: #ffcc00;
-  }
-  
-  .feature p {
-    margin: 0;
-    font-size: 14px;
-    font-weight: bold;
-  }
- 
-  
-  /* Glowing Phone Effect */
+}
+
+/* 📱 Phone Image inside a Square */
+.phoneContainer {
+  width: 250px;
+  height: 250px;
+  background: rgb(116, 102, 102);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.phoneImage {
+  width: 200px;
+  height: 250px;
+  animation: shakeSide 2s infinite ease-in-out;
+}
+
+/* 🔄 Shake Animation */
+@keyframes shakeSide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-5px); }
+}
+
+/* 🏷 Extra Text */
+.extraText {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* 🌟 Glowing Phone Effect */
+.phoneGlow {
+  position: relative;
+  display: inline-block;
+  border-radius: 20px;
+  padding: 10px;
+  background: radial-gradient(circle, rgba(255, 115, 0, 0.3) 20%, transparent 80%);
+  box-shadow: 0px 0px 40px rgba(255, 94, 0, 0.6);
+}
+
+/* 📌 Mobile: Reduce Glow Effect */
+@media (max-width: 600px) {
   .phoneGlow {
-    position: relative;
-    display: inline-block;
-    border-radius: 20px;
-    padding: 10px;
-    background: radial-gradient(circle, rgba(255, 115, 0, 0.3) 20%, transparent 80%);
-    box-shadow: 0px 0px 40px rgba(255, 94, 0, 0.6);
-   
+    padding: 5px;
+    box-shadow: 0px 0px 20px rgba(255, 94, 0, 0.6);
   }
-  
-  
-  /* Rating Badge */
-  .ratingBadge {
-    position: absolute;
-    top: -20px;
-    right: -10px;
-    background: gold;
-    color: black;
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
+}
+
+/* ⭐ Rating Badge */
+.ratingBadge {
+  position: absolute;
+  top: -20px;
+  right: -10px;
+  background: gold;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+/* ⬇️ Download Badge */
+.downloadBadge {
+  position: absolute;
+  bottom: -20px;
+  left: -10px;
+  background: #ff4800;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+}
+
+/* 📱 Mobile: Reduce Badge Size */
+@media (max-width: 600px) {
+  .ratingBadge, .downloadBadge {
+    font-size: 12px;
+    padding: 5px 10px;
   }
-  
-  /* Download Badge */
-  .downloadBadge {
-    position: absolute;
-    bottom: -20px;
-    left: -10px;
-    background: #ff4800;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
+}
+
+/* 🍽 Background Food Elements */
+.foodElement {
+  position: absolute;
+  width: 80px;
+}
+
+.leftTop {
+  top: 0;
+  left: 0;
+}
+
+.leftBottom {
+  bottom: 0;
+  left: 0;
+}
+
+/* 📱 Mobile: Resize Food Elements */
+@media (max-width: 600px) {
+  .foodElement {
+    width: 60px;
   }
-  
-  /* Icons inside badges */
-  .ratingIcon, .downloadIcon {
-    font-size: 16px;
-  }
-  
+}
