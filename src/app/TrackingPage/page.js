@@ -3,7 +3,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { updateOrderStatus } from "@/app/store/orderSlice";
-import { Container, ListGroup, Spinner } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Spinner, Image } from "react-bootstrap";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
@@ -27,7 +27,6 @@ export default function TrackingPage() {
     let foundOrder = orders.find((o) => o.id === trackingId) || storedOrders.find((o) => o.id === trackingId);
 
     if (foundOrder) {
-      // If startTime is missing, set it
       if (!foundOrder.startTime) {
         foundOrder.startTime = Date.now();
         localStorage.setItem("orders", JSON.stringify(storedOrders)); // Save it
@@ -70,28 +69,61 @@ export default function TrackingPage() {
   }
 
   return (
-    <Container className="mt-5 p-4 border rounded shadow-lg" style={{ maxWidth: "600px", backgroundColor: "#f8f9fa" }}>
-      <h3 className="fw-bold text-center mb-4">Order Tracking</h3>
-      <h6 className="text-center mb-3">Tracking ID: {trackingId}</h6>
+    <Container className="mt-5 p-4 border rounded shadow-lg tracking-container">
+      <Row>
+        {/* Tracking Details (Left Side) */}
+        <Col md={8}>
+          <h3 className="fw-bold text-center mb-4">Order Tracking</h3>
+          <h6 className="text-center mb-3">Tracking ID: {trackingId}</h6>
 
-      <ListGroup>
-        {statuses.map((status, index) => (
-          <ListGroup.Item
-            key={index}
-            className="d-flex align-items-center p-3"
-            style={{ backgroundColor: index <= order.statusIndex ? "#d4edda" : "#f8f9fa" }}
-          >
-            {index < order.statusIndex ? (
-              <BsCheckCircleFill color="green" size={24} className="me-3" />
-            ) : index === order.statusIndex ? (
-              <Spinner animation="border" size="sm" className="me-3" />
-            ) : (
-              <FaShippingFast size={24} className="me-3 text-muted" />
-            )}
-            <span className={index <= order.statusIndex ? "fw-bold" : "text-muted"}>{status}</span>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
+          <ListGroup>
+            {statuses.map((status, index) => (
+              <ListGroup.Item
+                key={index}
+                className="d-flex align-items-center p-3"
+                style={{ backgroundColor: index <= order.statusIndex ? "#d4edda" : "#f8f9fa" }}
+              >
+                {index < order.statusIndex ? (
+                  <BsCheckCircleFill color="green" size={24} className="me-3" />
+                ) : index === order.statusIndex ? (
+                  <Spinner animation="border" size="sm" className="me-3" />
+                ) : (
+                  <FaShippingFast size={24} className="me-3 text-muted" />
+                )}
+                <span className={index <= order.statusIndex ? "fw-bold" : "text-muted"}>{status}</span>
+              </ListGroup.Item>
+            ))}
+          </ListGroup>
+        </Col>
+
+        {/* Image Container (Right Side) */}
+        <Col md={4} className="d-flex align-items-center justify-content-center">
+          <Image 
+            src="/images/delivery-boy.png"  // 🔄 Change this to your preferred image
+            alt="Tracking Image"
+            fluid
+            className="tracking-image"
+          />
+        </Col>
+      </Row>
+
+      {/* ✅ Styles */}
+      <style jsx>{`
+        .tracking-container {
+          max-width: 900px;
+          background-color: #f8f9fa;
+        }
+        .tracking-image {
+          max-width: 100%;
+          height: auto;
+          border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+          .tracking-image {
+            max-width: 70%;
+          }
+        }
+      `}</style>
     </Container>
   );
 }
