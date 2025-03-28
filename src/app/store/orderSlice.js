@@ -1,53 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const statuses = ["Order Confirmed", "Item Packed", "Shipped", "Out for Delivery", "Delivered"];
-const statusIntervals = [0, 5 * 1000, 15 * 60 * 1000, 30 * 60 * 1000, 40 * 60 * 1000]; // 5 sec, 15 min, 15 min, 10 min
-
-const loadOrders = () => {
-  if (typeof window !== "undefined") {
-    const savedOrders = localStorage.getItem("orders");
-    return savedOrders ? JSON.parse(savedOrders) : [];
-  }
-  return [];
-};
-
 const initialState = {
-  orders: loadOrders(),
+  orders: [],
 };
 
-const ordersSlice = createSlice({
+const orderSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
     addOrder: (state, action) => {
-      const newOrder = {
-        ...action.payload,
-        statusIndex: 0,
-        startTime: Date.now(),
-      };
-      state.orders.push(newOrder);
-      localStorage.setItem("orders", JSON.stringify(state.orders));
+      const order = { ...action.payload, statusIndex: 0, startTime: Date.now() };
+      state.orders.push(order);
+
+      // ✅ Save orders to localStorage (only for logged-in user)
+      if (typeof window !== "undefined") {
+        localStorage.setItem("orders", JSON.stringify(state.orders));
+      }
     },
-    updateOrderStatus: (state) => {
-      const currentTime = Date.now();
 
-      state.orders = state.orders.map((order) => {
-        const elapsedTime = currentTime - order.startTime;
-        let newStatusIndex = 0;
+    loadOrdersAfterLogin: (state, action) => {
+      const email = action.payload; // Get user email
+      if (typeof window !== "undefined") {
+        const allOrders = JSON.parse(localStorage.getItem("orders")) || [];
+        // ✅ Load only orders for the logged-in user
+        state.orders = allOrders.filter(order => order.userEmail === email);
+      }
+    },
 
-        for (let i = 0; i < statusIntervals.length; i++) {
-          if (elapsedTime >= statusIntervals[i]) {
-            newStatusIndex = i;
-          }
-        }
-
-        return { ...order, statusIndex: newStatusIndex };
-      });
-
-      localStorage.setItem("orders", JSON.stringify(state.orders));
+    clearOrders: (state) => {
+      state.orders = [];
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("orders"); // ✅ Remove orders on logout
+      }
     },
   },
 });
 
-export const { addOrder, updateOrderStatus } = ordersSlice.actions;
-export default ordersSlice.reducer;
+export const { addOrder, loadOrdersAfterLogin, clearOrders } = orderSlice.actions;
+export default orderSlice.reducer;

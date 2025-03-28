@@ -122,7 +122,7 @@ export default function CustomNavbar() {
                 className="text-white mx-3" 
                 size={20} 
                 style={{ cursor: "pointer" }} 
-                onClick={() => router.push("/Login")}
+                onClick={() => router.push("/profile")}
               />
 
               {/* 🔴 Order Now Button */}
