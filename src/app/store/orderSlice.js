@@ -8,10 +8,10 @@ const orderSlice = createSlice({
       state.orders.push({ ...action.payload, status: "Order Confirmed" });
     },
     updateOrderStatus: (state, action) => {
-      const order = state.orders.find(o => o.id === action.payload.id);
+      const order = state.orders.find((o) => o.id === action.payload.id);
       if (order) order.status = action.payload.status;
-    }
-  }
+    },
+  },
 });
 
 export const { addOrder, updateOrderStatus } = orderSlice.actions;
