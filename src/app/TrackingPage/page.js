@@ -13,38 +13,40 @@ const updateInterval = 5 * 1000; // Check every 5 seconds
 const trackingDuration = 60 * 60 * 1000; // 1 hour
 
 export default function TrackingPage() {
-  const searchParams = useSearchParams();
-  const trackingId = searchParams.get("trackingId");
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.orders);
-
+  
+  const [trackingId, setTrackingId] = useState(null);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load order from Redux or localStorage
+  // ✅ Get tracking ID safely inside useEffect
   useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const id = searchParams.get("trackingId");
+    setTrackingId(id);
+  }, []);
+
+  // Load order from Redux or localStorage when trackingId is available
+  useEffect(() => {
+    if (!trackingId) return;
+
     const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
     let foundOrder = orders.find((o) => o.id === trackingId) || storedOrders.find((o) => o.id === trackingId);
 
     if (foundOrder) {
       if (!foundOrder.startTime) {
         foundOrder.startTime = Date.now();
-        localStorage.setItem("orders", JSON.stringify(storedOrders)); // Save it
+        localStorage.setItem("orders", JSON.stringify(storedOrders));
       }
-
-      console.log("Found Order:", foundOrder); // Debugging
-
       setOrder(foundOrder);
-      setLoading(false);
-    } else {
-      setLoading(false);
     }
+    setLoading(false);
   }, [trackingId, orders]);
 
   // Auto-update order status every 5 seconds for 1 hour
   useEffect(() => {
     if (!order) return;
-
     const elapsedTime = Date.now() - order.startTime;
     if (elapsedTime >= trackingDuration) return; // Stop updates after 1 hour
 
