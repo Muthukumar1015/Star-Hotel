@@ -7,7 +7,7 @@
   /* Testimonials Grid */
   .testimonialsGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(4, 1fr); /* 2 columns */
     gap: 20px;
   }
   
@@ -93,7 +93,7 @@
   /* Mobile Responsive */
   @media (max-width: 768px) {
     .testimonialsGrid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr; /* Single column for mobile */
     }
   
     .testimonialCard {

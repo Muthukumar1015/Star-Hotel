@@ -36,12 +36,19 @@ const productsSlice = createSlice({
   reducers: {
     filterProducts: (state, action) => {
       const { searchQuery, selectedCategory, priceRange } = action.payload;
-      state.filteredProducts = state.products.filter((product) => {
-        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
-        const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-        return matchesSearch && matchesCategory && matchesPrice;
-      });
+      let filtered = state.products;
+
+      if (searchQuery) {
+        filtered = filtered.filter((p) =>
+          p.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      }
+
+      if (selectedCategory) {
+        filtered = filtered.filter((p) => p.category === selectedCategory);
+      }
+
+      state.filteredProducts = filtered;
     },
   },
 });

@@ -69,7 +69,7 @@ export default function Auth() {
           setShowSuccessPopup(true); // Show success popup
           setTimeout(() => {
             setShowSuccessPopup(false);
-            router.push("/dashboard"); // Redirect after success
+            router.push("/"); // Redirect after success
           }, 2000);
         }
         setIsLoggingIn(false);

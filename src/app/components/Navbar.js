@@ -1,16 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";  // ✅ Using Next.js Link for navigation
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
 import { FaShoppingCart, FaUser, FaBars } from "react-icons/fa";
-import { useSelector } from "react-redux"; 
+import { useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function CustomNavbar() {
   const router = useRouter();
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const cartRef = useRef(null); // 👈 Reference for Cart Preview
 
   // 🛒 Get cart items from Redux
   const cartItems = useSelector((state) => state.cart?.items || []);
@@ -21,9 +22,22 @@ export default function CustomNavbar() {
     { label: "Home", path: "/" },
     { label: "About Us", path: "/aboutus" },
     { label: "Shop", path: "/shop" },
-    { label: "Blog", path: "/blog" },  // ✅ Fixed blog navigation
+    { label: "Blog", path: "/blog" },
     { label: "Contact Us", path: "/ContactUs" },
   ];
+
+  // ❌ Hide Cart Preview when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (cartRef.current && !cartRef.current.contains(event.target)) {
+        setShowCartPreview(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -55,57 +69,58 @@ export default function CustomNavbar() {
                 <NavDropdown.Item as={Link} href="/reservation">Reservation</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Login">My Account</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/404">404 Page</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/Your-Order">Your Order</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/TrackingPage">Tracking</NavDropdown.Item>
+
               </NavDropdown>
             </Nav>
 
             <div className="d-flex align-items-center">
-              {/* 🛒 Cart Button with Hover Preview */}
+              {/* 🛒 Cart Button with Click Preview */}
               <div 
                 className="cart-container position-relative mx-3"
-                onMouseEnter={() => setShowCartPreview(true)}
-                onMouseLeave={() => setShowCartPreview(false)}
+                onClick={() => setShowCartPreview(!showCartPreview)}
                 style={{ cursor: "pointer" }}
               >
                 <FaShoppingCart className="text-white" size={22} />
                 {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
-
-                {/* 🛍️ Cart Preview Dropdown */}
-                {showCartPreview && (
-                  <div className="cart-preview">
-                    {cartItems.length === 0 ? (
-                      <p className="text-center text-muted">No items in cart</p>
-                    ) : (
-                      <>
-                        {cartItems.map((item, index) => (
-                          <div key={index} className="cart-item">
-                            <img src={item.image} alt={item.name} />
-                            <div className="cart-item-details">
-                              <p>{item.name}</p>
-                              <span>{item.quantity} x ${item.price.toFixed(2)}</span>
-                            </div>
-                          </div>
-                        ))}
-                        <hr />
-                        <div className="cart-total">
-                          <p>Total: <span>${totalPrice.toFixed(2)}</span></p>
-                        </div>
-                        <div className="cart-buttons">
-                          <Button variant="danger" className="w-100" onClick={() => router.push("/Cart")}>View Cart</Button>
-                          <Button variant="warning" className="w-100 mt-2" onClick={() => router.push("/checkout")}>Checkout</Button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
               </div>
+
+              {/* 🛍️ Cart Preview Dropdown */}
+              {showCartPreview && (
+                <div ref={cartRef} className="cart-preview">
+                  {cartItems.length === 0 ? (
+                    <p className="text-center text-muted">No items in cart</p>
+                  ) : (
+                    <>
+                      {cartItems.map((item, index) => (
+                        <div key={index} className="cart-item">
+                          <img src={item.image} alt={item.name} />
+                          <div className="cart-item-details">
+                            <p>{item.name}</p>
+                            <span>{item.quantity} x ${item.price.toFixed(2)}</span>
+                          </div>
+                        </div>
+                      ))}
+                      <hr />
+                      <div className="cart-total">
+                        <p>Total: <span>${totalPrice.toFixed(2)}</span></p>
+                      </div>
+                      <div className="cart-buttons">
+                        <Button variant="danger" className="w-100" onClick={() => router.push("/Cart")}>View Cart</Button>
+                        <Button variant="warning" className="w-100 mt-2" onClick={() => router.push("/checkout")}>Checkout</Button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
 
               {/* 👤 User Profile */}
               <FaUser 
                 className="text-white mx-3" 
                 size={20} 
                 style={{ cursor: "pointer" }} 
-                onClick={() => router.push("/Login")}  // ✅ Now redirects to login page
+                onClick={() => router.push("/Login")}
               />
 
               {/* 🔴 Order Now Button */}
@@ -183,3 +198,5 @@ export default function CustomNavbar() {
     </>
   );
 }
+
+     
