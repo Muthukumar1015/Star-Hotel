@@ -17,7 +17,7 @@ export default function TrackingPage() {
     "Item Packed",
     "Shipped",
     "Out for Delivery",
-    "Delivered"
+    "Delivered",
   ];
 
   useEffect(() => {
@@ -31,8 +31,12 @@ export default function TrackingPage() {
         if (savedTracking) {
           setStatusIndex(parseInt(savedTracking));
         } else {
-          let elapsedTime = (new Date() - new Date(foundOrder.date)) / (1000 * 60);
-          let step = Math.min(Math.floor(elapsedTime / 15), statuses.length - 1);
+          let elapsedTime =
+            (new Date() - new Date(foundOrder.date)) / (1000 * 60);
+          let step = Math.min(
+            Math.floor(elapsedTime / 15),
+            statuses.length - 1
+          );
           setStatusIndex(step);
           localStorage.setItem(`tracking_${trackingId}`, step); // Save progress
         }
@@ -80,7 +84,9 @@ export default function TrackingPage() {
                 </tr>
               ))}
               <tr>
-                <td colSpan="3" className="text-end fw-bold">Total</td>
+                <td colSpan="3" className="text-end fw-bold">
+                  Total
+                </td>
                 <td>${order.totalPrice.toFixed(2)}</td>
               </tr>
             </tbody>
@@ -93,13 +99,27 @@ export default function TrackingPage() {
           </Alert>
 
           {/* Progress Bar */}
-          <ProgressBar now={(statusIndex + 1) * 20} label={`${statuses[statusIndex]}`} />
+          <ProgressBar
+            now={(statusIndex + 1) * 20}
+            label={`${statuses[statusIndex]}`}
+          />
 
           {/* Detailed Timeline */}
           <div className="status-timeline mt-4">
             {statuses.map((status, index) => (
-              <div key={index} className={`status-item ${index <= statusIndex ? "completed" : ""}`}>
-                <span className={`status-circle ${index <= statusIndex ? "active" : ""}`}>&#10003;</span>
+              <div
+                key={index}
+                className={`status-item ${
+                  index <= statusIndex ? "completed" : ""
+                }`}
+              >
+                <span
+                  className={`status-circle ${
+                    index <= statusIndex ? "active" : ""
+                  }`}
+                >
+                  &#10003;
+                </span>
                 <p className="status-text">{status}</p>
               </div>
             ))}
