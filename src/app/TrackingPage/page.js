@@ -7,8 +7,8 @@ import { Container, Table, Alert, ProgressBar } from "react-bootstrap";
 
 export default function TrackingPage() {
   const searchParams = useSearchParams();
-  const initialTrackingId = searchParams.get("trackingId") || "";
-  const [trackingId, setTrackingId] = useState(initialTrackingId);
+  const initialTrackingId = searchParams.get("tracking") || "";
+  const [trackingId, setTracking] = useState(initialTrackingId);
   const [order, setOrder] = useState(null);
   const [statusIndex, setStatusIndex] = useState(0);
   const orders = useSelector((state) => state.orders.orders);
