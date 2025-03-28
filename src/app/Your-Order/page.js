@@ -17,7 +17,7 @@ export default function YourOrdersPage() {
   useEffect(() => {
     const updateStatus = () => {
       const newStatus = {};
-      const completed = {};
+      const completed = {}; 
 
       orders.forEach((order) => {
         let elapsedTime = (new Date() - new Date(order.date)) / (1000 * 60); // Minutes elapsed
