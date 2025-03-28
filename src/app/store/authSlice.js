@@ -13,10 +13,16 @@ const authSlice = createSlice({
   reducers: {
     register: (state, action) => {
       const { name, dob, email, phone, password } = action.payload;
-      const newUser = { name, dob, email, phone, password };
-      state.users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(state.users));
-      state.error = null;
+      const existingUser = state.users.find((u) => u.email === email);
+
+      if (!existingUser) {
+        const newUser = { name, dob, email, phone, password };
+        state.users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(state.users));
+        state.error = null;
+      } else {
+        state.error = "Email already registered. Please log in.";
+      }
     },
 
     login: (state, action) => {
@@ -45,12 +51,16 @@ const authSlice = createSlice({
       state.error = null;
     },
   },
+
+  // ✅ Fix Extra Reducers: Directly call functions inside reducers
   extraReducers: (builder) => {
-    builder.addCase(login, (state, action) => {
-      loadOrdersAfterLogin(action.payload.email); // ✅ Load orders after login
+    builder.addCase("auth/login", (state) => {
+      if (state.user) {
+        loadOrdersAfterLogin(state.user.email); // ✅ Load orders after login
+      }
     });
 
-    builder.addCase(logout, (state) => {
+    builder.addCase("auth/logout", () => {
       clearOrders(); // ✅ Clear orders after logout
     });
   },

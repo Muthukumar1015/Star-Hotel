@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, login, clearError } from "@/app/store/authSlice";
-import { loadOrdersAfterLogin } from "@/app/store/orderSlice";
 import { useRouter } from "next/navigation";
 import styles from "@/app/Login/login.module.css";
 
@@ -26,13 +25,6 @@ export default function Auth() {
   const [isSignup, setIsSignup] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-
-  // ✅ Load Orders After Successful Login
-  useEffect(() => {
-    if (user) {
-      dispatch(loadOrdersAfterLogin());
-    }
-  }, [user, dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -61,8 +53,8 @@ export default function Auth() {
       setTimeout(() => {
         setShowSuccessPopup(true);
         setTimeout(() => {
-          router.push("/Login");
-        }, 2000);
+          router.push("/Login"); // ✅ Redirect to Login Page
+        }, 1000);
       }, 1000);
       
     } else {
@@ -95,7 +87,7 @@ export default function Auth() {
 
       {showSuccessPopup && (
         <div className={styles.successPopup}>
-          <p>🎉 {isSignup ? "Signup Successful! Redirecting..." : "Login Successful! Redirecting..."}</p>
+          <p>🎉 {isSignup ? "Signup Successful! Redirecting to Login..." : "Login Successful! Redirecting..."}</p>
         </div>
       )}
 

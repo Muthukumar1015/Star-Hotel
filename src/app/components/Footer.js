@@ -24,11 +24,11 @@ export default function Footer() {
         <div className="row text-center">
           <div className="col-md-4">
             <h6>Address</h6>
-            <p>Dubai Kuruku Sandhu</p>
+            <p>Oppsite Medical College,Ariyalur</p>
           </div>
           <div className="col-md-4">
             <h6>Send Email</h6>
-            <p>vanakam da mapla.@gmail.com</p>
+            <p></p>
           </div>
           <div className="col-md-4">
             <h6>Call Emergency</h6>
