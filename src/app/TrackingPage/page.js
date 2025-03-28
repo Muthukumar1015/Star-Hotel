@@ -12,7 +12,6 @@ export default function TrackingPage() {
   const [order, setOrder] = useState(null);
   const [statusIndex, setStatusIndex] = useState(0);
   const orders = useSelector((state) => state.orders.orders);
-
   const statuses = [
     "Order Confirmed",
     "Item Packed",
