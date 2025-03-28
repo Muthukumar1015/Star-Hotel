@@ -14,18 +14,30 @@ export default function YourOrdersPage() {
   const [orderStatus, setOrderStatus] = useState({});
   const [completedOrders, setCompletedOrders] = useState({});
 
+  // Load saved order statuses from localStorage
+  useEffect(() => {
+    const savedStatus = JSON.parse(localStorage.getItem("orderStatus")) || {};
+    setOrderStatus(savedStatus);
+  }, []);
+
   useEffect(() => {
     const updateStatus = () => {
-      const newStatus = {};
+      const newStatus = { ...orderStatus };
       const completed = {};
 
       orders.forEach((order) => {
-        let elapsedTime = (new Date() - new Date(order.date)) / (1000 * 60); // Minutes elapsed
-        let step = Math.min(Math.floor(elapsedTime / 15), statuses.length - 1);
+        const startTime = order.startTime || new Date(order.date).getTime(); // Use saved start time
+        const elapsedTime = (Date.now() - startTime) / (1000 * 60); // Minutes elapsed
+
+        let step = 0;
+        if (elapsedTime >= 5) step = 1; // Item Packed after 5 minutes
+        if (elapsedTime >= 20) step = 2; // Shipped after 15 minutes
+        if (elapsedTime >= 35) step = 3; // Out for Delivery after 15 minutes
+        if (elapsedTime >= 45) step = 4; // Delivered after 10 minutes
 
         newStatus[order.id] = step;
 
-        // If order is older than 1 hour, mark it as completed
+        // If order is older than 1 hour, mark as completed
         if (elapsedTime >= 60) {
           completed[order.id] = true;
         }
@@ -33,10 +45,11 @@ export default function YourOrdersPage() {
 
       setOrderStatus(newStatus);
       setCompletedOrders(completed);
+      localStorage.setItem("orderStatus", JSON.stringify(newStatus)); // Save progress
     };
 
     updateStatus();
-    const interval = setInterval(updateStatus, 15 * 60 * 1000); // Update every 15 minutes
+    const interval = setInterval(updateStatus, 5000); // Update every 5 seconds
     return () => clearInterval(interval);
   }, [orders]);
 
@@ -51,14 +64,14 @@ export default function YourOrdersPage() {
             <h5 className="fw-bold">Tracking ID: {order.id}</h5>
             <p>
               <strong>Date:</strong> {order.date}{" "}
-              {completedOrders[order.id] && <BsCheckCircle color="green" size={20} />} {/* Tick icon after 1 hour */}
+              {completedOrders[order.id] && <BsCheckCircle color="green" size={20} />}
             </p>
 
             {/* Order Status */}
             <Alert variant="info">
-              <h6>Status: {statuses[orderStatus[order.id]]}</h6>
+              <h6>Status: {statuses[orderStatus[order.id]] || "Processing"}</h6>
             </Alert>
-            <ProgressBar now={(orderStatus[order.id] + 1) * 20} label={statuses[orderStatus[order.id]]} />
+            <ProgressBar now={(orderStatus[order.id] + 1) * 20} label={statuses[orderStatus[order.id]] || "Processing"} />
 
             {/* Order Items */}
             <Table bordered className="mt-3">

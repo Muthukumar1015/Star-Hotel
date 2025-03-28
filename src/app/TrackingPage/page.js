@@ -1,148 +1,97 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { updateOrderStatus } from "@/app/store/orderSlice";
+import { Container, ListGroup, Spinner } from "react-bootstrap";
+import { BsCheckCircleFill } from "react-icons/bs";
+import { FaShippingFast } from "react-icons/fa";
 import { useSearchParams } from "next/navigation";
-import { Container, Table, Alert, ProgressBar } from "react-bootstrap";
+
+const statuses = ["Order Confirmed", "Item Packed", "Shipped", "Out for Delivery", "Delivered"];
+const updateInterval = 5 * 1000; // Check every 5 seconds
+const trackingDuration = 60 * 60 * 1000; // 1 hour
 
 export default function TrackingPage() {
   const searchParams = useSearchParams();
-  const trackingId = searchParams.get("trackingId") || "";
-  const [order, setOrder] = useState(null);
-  const [statusIndex, setStatusIndex] = useState(0);
-  const [extraUpdates, setExtraUpdates] = useState([]);
+  const trackingId = searchParams.get("trackingId");
+  const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.orders);
 
-  const statuses = [
-    "Order Confirmed",
-    "Item Packed",
-    "Shipped",
-    "Out for Delivery",
-    "Delivered",
-  ];
+  const [order, setOrder] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  // Load order from Redux or localStorage
   useEffect(() => {
-    if (trackingId) {
-      const foundOrder = orders.find((o) => o.id === trackingId);
-      if (foundOrder) {
-        setOrder(foundOrder);
+    const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    let foundOrder = orders.find((o) => o.id === trackingId) || storedOrders.find((o) => o.id === trackingId);
 
-        // Load tracking status from localStorage
-        const savedStatus = localStorage.getItem(`tracking_${trackingId}`);
-        const savedExtraUpdates = JSON.parse(
-          localStorage.getItem(`extra_updates_${trackingId}`) || "[]"
-        );
-
-        if (savedStatus) {
-          setStatusIndex(parseInt(savedStatus));
-        } else {
-          let elapsedTime = (new Date() - new Date(foundOrder.date)) / (1000 * 60);
-          let step = Math.min(Math.floor(elapsedTime / 12), statuses.length - 1);
-          setStatusIndex(step);
-          localStorage.setItem(`tracking_${trackingId}`, step);
-        }
-
-        setExtraUpdates(savedExtraUpdates);
-
-        // Update status every 12 minutes
-        const interval = setInterval(() => {
-          setStatusIndex((prev) => {
-            if (prev < statuses.length - 1) {
-              const newIndex = prev + 1;
-              localStorage.setItem(`tracking_${trackingId}`, newIndex);
-              return newIndex;
-            } else {
-              clearInterval(interval);
-              return prev;
-            }
-          });
-        }, 12 * 60 * 1000);
-
-        // Delivery boy updates after delivery
-        const extraUpdateInterval = setInterval(() => {
-          if (statusIndex === statuses.length - 1) {
-            const newUpdate = `Delivery Boy Update: Order checked & verified at ${new Date().toLocaleTimeString()}`;
-            setExtraUpdates((prevUpdates) => {
-              const updatedList = [...prevUpdates, newUpdate];
-              localStorage.setItem(`extra_updates_${trackingId}`, JSON.stringify(updatedList));
-              return updatedList;
-            });
-          }
-        }, 10 * 60 * 1000);
-
-        return () => {
-          clearInterval(interval);
-          clearInterval(extraUpdateInterval);
-        };
+    if (foundOrder) {
+      // If startTime is missing, set it
+      if (!foundOrder.startTime) {
+        foundOrder.startTime = Date.now();
+        localStorage.setItem("orders", JSON.stringify(storedOrders)); // Save it
       }
+
+      console.log("Found Order:", foundOrder); // Debugging
+
+      setOrder(foundOrder);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
-  }, [trackingId, orders, statusIndex]);
+  }, [trackingId, orders]);
+
+  // Auto-update order status every 5 seconds for 1 hour
+  useEffect(() => {
+    if (!order) return;
+
+    const elapsedTime = Date.now() - order.startTime;
+    if (elapsedTime >= trackingDuration) return; // Stop updates after 1 hour
+
+    const interval = setInterval(() => {
+      dispatch(updateOrderStatus());
+    }, updateInterval);
+
+    return () => clearInterval(interval);
+  }, [dispatch, order]);
+
+  if (loading) {
+    return (
+      <Container className="mt-5 text-center">
+        <Spinner animation="border" />
+        <h5>Loading tracking details...</h5>
+      </Container>
+    );
+  }
+
+  if (!order) {
+    return <Container className="mt-5"><h4>Order not found!</h4></Container>;
+  }
 
   return (
-    <Container className="tracking-page mt-5">
-      <h3 className="fw-bold">Track Your Order</h3>
-      {order ? (
-        <div className="order-details p-3 border rounded">
-          <h5 className="fw-bold">Tracking ID: {order.id}</h5>
-          <Table bordered>
-            <thead>
-              <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {order.items.map(({ id, name, price, quantity }) => (
-                <tr key={id}>
-                  <td>{name}</td>
-                  <td>${price.toFixed(2)}</td>
-                  <td>{quantity}</td>
-                  <td>${(price * quantity).toFixed(2)}</td>
-                </tr>
-              ))}
-              <tr>
-                <td colSpan="3" className="text-end fw-bold">Total</td>
-                <td>${order.totalPrice.toFixed(2)}</td>
-              </tr>
-            </tbody>
-          </Table>
+    <Container className="mt-5 p-4 border rounded shadow-lg" style={{ maxWidth: "600px", backgroundColor: "#f8f9fa" }}>
+      <h3 className="fw-bold text-center mb-4">Order Tracking</h3>
+      <h6 className="text-center mb-3">Tracking ID: {trackingId}</h6>
 
-          {/* Order Status Section */}
-          <Alert variant="info" className="text-center mt-3">
-            <h5 className="fw-bold">Current Status</h5>
-            <p className="fs-5">{statuses[statusIndex]}</p>
-          </Alert>
-
-          {/* Progress Bar */}
-          <ProgressBar now={(statusIndex + 1) * 20} label={`${statuses[statusIndex]}`} />
-
-          {/* Status Timeline */}
-          <div className="status-timeline mt-4">
-            {statuses.map((status, index) => (
-              <div key={index} className={`status-item ${index <= statusIndex ? "completed" : ""}`}>
-                <span className={`status-circle ${index <= statusIndex ? "active" : ""}`}>&#10003;</span>
-                <p className="status-text">{status}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Delivery Boy Updates */}
-          {extraUpdates.length > 0 && (
-            <div className="extra-updates mt-4">
-              <h5 className="fw-bold">Delivery Boy Updates</h5>
-              <ul>
-                {extraUpdates.map((update, index) => (
-                  <li key={index}>{update}</li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      ) : (
-        trackingId && <Alert variant="danger">Tracking ID not found!</Alert>
-      )}
+      <ListGroup>
+        {statuses.map((status, index) => (
+          <ListGroup.Item
+            key={index}
+            className="d-flex align-items-center p-3"
+            style={{ backgroundColor: index <= order.statusIndex ? "#d4edda" : "#f8f9fa" }}
+          >
+            {index < order.statusIndex ? (
+              <BsCheckCircleFill color="green" size={24} className="me-3" />
+            ) : index === order.statusIndex ? (
+              <Spinner animation="border" size="sm" className="me-3" />
+            ) : (
+              <FaShippingFast size={24} className="me-3 text-muted" />
+            )}
+            <span className={index <= order.statusIndex ? "fw-bold" : "text-muted"}>{status}</span>
+          </ListGroup.Item>
+        ))}
+      </ListGroup>
     </Container>
   );
 }

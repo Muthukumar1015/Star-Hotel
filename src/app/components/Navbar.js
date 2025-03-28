@@ -11,13 +11,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function CustomNavbar() {
   const router = useRouter();
   const [showCartPreview, setShowCartPreview] = useState(false);
-  const cartRef = useRef(null); // 👈 Reference for Cart Preview
+  const cartRef = useRef(null);
 
   // 🛒 Get cart items from Redux
   const cartItems = useSelector((state) => state.cart?.items || []);
+  const orders = useSelector((state) => state.orders?.orders || []);
+  const latestOrder = orders.length > 0 ? orders[orders.length - 1] : null;
+  const trackingLink = latestOrder ? `/TrackingPage?trackingId=${latestOrder.id}` : "/TrackingPage";
+
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  // 🏠 Menu Items for easy mapping
   const menuItems = [
     { label: "Home", path: "/" },
     { label: "About Us", path: "/aboutus" },
@@ -65,13 +68,12 @@ export default function CustomNavbar() {
               <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
                 <NavDropdown.Item as={Link} href="/Service">Service</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Gallery">Gallery</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="Testimonials">Testimonials</NavDropdown.Item>
+                <NavDropdown.Item as={Link} href="/Testimonials">Testimonials</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/reservation">Reservation</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Login">My Account</NavDropdown.Item>
                 <NavDropdown.Item as={Link} href="/Your-Order">Your Order</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/TrackingPage">Tracking</NavDropdown.Item>
-
+                <NavDropdown.Item as={Link} href={trackingLink}>Tracking</NavDropdown.Item>
               </NavDropdown>
             </Nav>
 
@@ -198,5 +200,3 @@ export default function CustomNavbar() {
     </>
   );
 }
-
-     
