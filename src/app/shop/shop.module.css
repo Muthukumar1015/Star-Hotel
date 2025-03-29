@@ -1,11 +1,11 @@
 /* 🟥 Main Container */
-.container {
-  max-width: 1250px;
-  margin: auto;
+.shop-container {
   padding: 20px;
+  max-width: 1300px;
+  margin: auto;
 }
 
-/* 🔍 Search Box - Premium Glow */
+/* 🔍 Search Box */
 .search-box {
   display: flex;
   align-items: center;
@@ -27,103 +27,103 @@
   font-weight: bold;
 }
 
-.search-box input:focus {
-  box-shadow: 0 0 12px rgba(255, 60, 0, 0.6);
+/* 🎯 Sidebar Filters */
+.sidebar {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* 🎯 Sidebar Filters - Elegant Style */
 .filter-heading {
   font-weight: bold;
   font-size: 1.3rem;
   color: #ff3c00;
-  text-transform: uppercase;
 }
 
-.form-check-label {
-  font-size: 1rem;
-  font-weight: 600;
+/* 🔘 Toggle View Icons */
+.toggle-buttons {
+  display: flex;
+  gap: 12px;
 }
 
-.form-range {
-  accent-color: #ff3c00;
-}
-
-/* 🔘 Toggle View Icons - Premium Look */
-.toggleIcon {
+.toggle-icon {
   font-size: 1.7rem;
   cursor: pointer;
-  margin-left: 12px;
   color: #999;
   transition: 0.3s ease-in-out;
 }
 
-.toggleIcon.active {
+.toggle-icon.active {
   color: #ff3c00;
-  transform: scale(1.25);
-  text-shadow: 0 0 8px rgba(255, 60, 0, 0.5);
+  transform: scale(1.2);
 }
 
-/* 🛍 Product Card - Sleek & Smooth */
-.productCard {
-  border-radius: 15px;
+/* 🛍 Product Grid/List */
+.grid-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.list-view {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 📦 Product Card */
+.product-card {
+  border-radius: 10px;
   overflow: hidden;
   transition: all 0.3s ease-in-out;
   background: #fff;
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
 
-.productCard:hover {
-  transform: scale(1.06);
+.product-card:hover {
+  transform: scale(1.05);
   box-shadow: 0px 12px 30px rgba(255, 60, 0, 0.4);
 }
 
-/* 🍕 Product Image - Smooth Zoom */
-.productImgContainer {
+/* 🍕 Product Image */
+.product-img-container {
   position: relative;
   overflow: hidden;
-  height: 240px;
+  height: 250px; /* Increased height */
   border-bottom: 3px solid #ff3c00;
 }
 
-.productImg {
+.product-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease-in-out;
 }
 
-.productImg:hover {
+.product-img:hover {
   transform: scale(1.12);
 }
 
-/* ⭐ Product Rating - Premium Glow */
-.star-rating {
-  font-size: 1.2rem;
+/* ⭐ Product Rating */
+.rating {
   display: flex;
   gap: 4px;
 }
 
-.fa-star {
-  color: #ddd;
-  transition: 0.3s ease-in-out;
+/* 💰 Price Text */
+.price-text {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ff3c00;
 }
 
-.fa-star.filled {
-  color: gold;
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.7);
-}
-
-/* 🛒 Grand Add to Cart Button */
+/* 🛒 Add to Cart Button */
 .cart-button {
   font-size: 1.1rem;
   font-weight: bold;
-  padding: 14px 20px;
+  padding: 12px 18px;
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   transition: all 0.3s ease-in-out;
   background: linear-gradient(45deg, #ff3c00, #ff6b42);
   border: none;
@@ -133,70 +133,59 @@
 
 .cart-button:hover {
   background: linear-gradient(45deg, #ff3c00, #ff5733);
-  transform: scale(1.12);
+  transform: scale(1.1);
   box-shadow: 0px 8px 20px rgba(255, 60, 0, 0.6);
 }
 
-
-.listView {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* 📜 List View - Card Layout */
-.listCard {
+/* 📜 List View Styles */
+.list-card {
   display: flex;
   align-items: center;
   gap: 15px;
   padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
 }
 
-/* 🍕 Product Image - Default */
-.productImgContainer {
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
+.list-card:hover {
+  transform: scale(1.02);
 }
 
-/* 📜 List View - Small Image */
-.listImgContainer {
-  width: 180px; /* Small width */
-  height: 180px; /* Fixed height */
+.list-img-container {
+  width: 150px; /* Fixed size for list images */
+  height: 150px;
   border-radius: 10px;
   overflow: hidden;
-  margin-top: 20px;
 }
 
-.listImg {
+.list-img {
   object-fit: cover;
   width: 100%;
   height: 100%;
 }
 
 /* ✍️ Text Content */
-.textContent {
+.text-content {
   flex: 1;
-  padding: 10px;
 }
 
-
-/* 🔢 Pagination - Smooth UI */
+/* 🔢 Pagination */
 .pagination {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 .pagination button {
   font-size: 1rem;
-  padding: 10px 16px;
+  padding: 10px;
   border-radius: 6px;
-  border: none;
   background: #ff3c00;
   color: white;
   font-weight: bold;
-  transition: 0.3s ease-in-out;
   margin: 0 6px;
   box-shadow: 0px 4px 10px rgba(255, 60, 0, 0.3);
 }
@@ -206,12 +195,7 @@
   transform: scale(1.12);
 }
 
-.pagination .active {
-  background: #ff4500;
-  box-shadow: 0px 6px 12px rgba(255, 60, 0, 0.5);
-}
-
-/* 🎭 Smooth Fade-In Animation */
+/* 🌀 Animation Effects */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -223,32 +207,15 @@
   }
 }
 
-.productCard {
+.product-card {
   animation: fadeIn 0.6s ease-in-out;
-}
-
-/* 🌀 Glow Animation */
-@keyframes glow {
-  0% {
-    box-shadow: 0px 0px 10px rgba(255, 60, 0, 0.3);
-  }
-  50% {
-    box-shadow: 0px 0px 20px rgba(255, 60, 0, 0.5);
-  }
-  100% {
-    box-shadow: 0px 0px 10px rgba(255, 60, 0, 0.3);
-  }
-}
-
-.cart-button:hover {
-  animation: glow 1s infinite alternate;
 }
 
 /* 🔥 Responsive Enhancements */
 @media (max-width: 768px) {
   .cart-button {
     font-size: 1rem;
-    padding: 12px;
+    padding: 10px;
   }
 
   .pagination button {

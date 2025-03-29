@@ -21,8 +21,11 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setCanPlaceOrder(
-      billingDetails.firstName && billingDetails.lastName && billingDetails.email &&
-      (!shipToDifferent || (shippingDetails.firstName && shippingDetails.lastName && shippingDetails.email)) &&
+      billingDetails.firstName && billingDetails.lastName && billingDetails.email && billingDetails.phone &&
+      billingDetails.address && billingDetails.city && billingDetails.state && billingDetails.zipCode &&
+      (!shipToDifferent || (shippingDetails.firstName && shippingDetails.lastName && shippingDetails.email &&
+        shippingDetails.phone && shippingDetails.address && shippingDetails.city &&
+        shippingDetails.state && shippingDetails.zipCode)) &&
       paymentMethod
     );
   }, [billingDetails, shippingDetails, shipToDifferent, paymentMethod]);
@@ -68,9 +71,9 @@ export default function CheckoutPage() {
       <Row>
         {/* Billing Details */}
         <Col md={6}>
-          <h5 className="fw-bold">Billing Details</h5>
+          <h5 className="fw-bold">Billing Address</h5>
           <Form>
-            {["firstName", "lastName", "email"].map((field) => (
+            {["firstName", "lastName", "email", "phone", "address", "city", "state", "zipCode"].map((field) => (
               <Form.Control key={field} name={field} placeholder={field.replace(/([A-Z])/g, " $1")} className="mb-3"
                 value={billingDetails[field] || ""} onChange={(e) => handleInputChange(e, "billing")} />
             ))}
@@ -84,7 +87,7 @@ export default function CheckoutPage() {
           </h5>
           {shipToDifferent && (
             <Form>
-              {["firstName", "lastName", "email"].map((field) => (
+              {["firstName", "lastName", "email", "phone", "address", "city", "state", "zipCode"].map((field) => (
                 <Form.Control key={field} name={field} placeholder={field.replace(/([A-Z])/g, " $1")} className="mb-3"
                   value={shippingDetails[field] || ""} onChange={(e) => handleInputChange(e, "shipping")} />
               ))}
@@ -116,7 +119,7 @@ export default function CheckoutPage() {
 
         {/* Payment Options */}
         <h5>Payment Options</h5>
-        {["bank", "cheque", "card", "paypal"].map((method) => (
+        {["cashOnDelivery", "gpayOnDelivery", "card", "paypal", "bank"].map((method) => (
           <Form.Check key={method} type="radio" label={method.replace(/([A-Z])/g, " $1")} name="payment"
             checked={paymentMethod === method} onChange={() => handlePaymentChange(method)} className="mb-2" />
         ))}
@@ -132,7 +135,8 @@ export default function CheckoutPage() {
         )}
         {paymentMethod === "paypal" && <p className="mt-2 text-info">You will be redirected to PayPal for payment.</p>}
         {paymentMethod === "bank" && <p className="mt-2 text-info">Bank transfer details will be provided after order placement.</p>}
-        {paymentMethod === "cheque" && <p className="mt-2 text-info">Please send your cheque to our mailing address.</p>}
+        {paymentMethod === "cashOnDelivery" && <p className="mt-2 text-success fw-bold">Pay with cash when your order arrives.</p>}
+        {paymentMethod === "gpayOnDelivery" && <p className="mt-2 text-primary fw-bold">Pay using Google Pay when your order arrives.</p>}
 
         {/* Place Order Button */}
         <Button variant="danger" className="w-100 mt-3" disabled={!canPlaceOrder} onClick={handleOrder}>

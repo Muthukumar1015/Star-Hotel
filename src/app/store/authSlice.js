@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadOrdersAfterLogin, clearOrders } from "./orderSlice"; 
+import { loadOrdersAfterLogin, clearOrdersOnLogout } from "./orderSlice";
 
 const initialState = {
   user: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) || null : null,
@@ -34,6 +34,9 @@ const authSlice = createSlice({
           state.user = state.users[userIndex];
           localStorage.setItem("user", JSON.stringify(state.user));
           state.error = null;
+
+          // ✅ Load user's orders on login
+          action.asyncDispatch(loadOrdersAfterLogin(email));
         } else {
           state.error = "Incorrect password.";
         }
@@ -42,9 +45,12 @@ const authSlice = createSlice({
       }
     },
 
-    logout: (state) => {
+    logout: (state, action) => {
       state.user = null;
       localStorage.removeItem("user");
+
+      // ✅ Clear Redux orders (but keep them in localStorage)
+      action.asyncDispatch(clearOrdersOnLogout());
     },
 
     clearError: (state) => {
