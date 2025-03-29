@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { register, login, clearError } from "@/app/store/authSlice";
+import { loadOrdersAfterLogin } from "@/app/store/orderSlice"; 
 import { useRouter } from "next/navigation";
-import styles from "@/app/Login/login.module.css";
+import { Button, Modal, Form, Container } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Auth() {
   const dispatch = useDispatch();
@@ -24,7 +26,14 @@ export default function Auth() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      dispatch(loadOrdersAfterLogin());
+      router.push("/Your-Order"); // ✅ Redirect as soon as user logs in
+    }
+  }, [user, dispatch, router]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,7 +46,8 @@ export default function Auth() {
 
     if (isSignup) {
       if (formData.password !== formData.confirmPassword) {
-        alert("Passwords do not match!");
+        setPopupMessage("❌ Passwords do not match!");
+        setShowPopup(true);
         setIsLoggingIn(false);
         return;
       }
@@ -50,76 +60,101 @@ export default function Auth() {
         password: formData.password,
       }));
 
-      setTimeout(() => {
-        setShowSuccessPopup(true);
-        setTimeout(() => {
-          router.push("/Login"); // ✅ Redirect to Login Page
-        }, 1000);
-      }, 1000);
-      
+      setPopupMessage("✅ Signup Successful! Redirecting...");
+      setShowPopup(true);
+      setTimeout(() => router.push("/Your-Order"), 2000);
+
     } else {
       await dispatch(login({ email: formData.email, password: formData.password }));
 
-      setTimeout(() => {
-        if (!user) {
-          setShowPopup(true);
+      if (!error && user) {
+        router.push("/Your-Order"); // ✅ Redirect immediately if login is successful
+      } else {
+        if (error === "User not found.") {
+          setPopupMessage("❌ User not found. Please register first.");
+        } else if (error === "Incorrect password.") {
+          setPopupMessage("⚠️ Incorrect password. Reset your password.");
         } else {
-          setShowSuccessPopup(true);
-          setTimeout(() => {
-            router.push("/");  // ✅ Redirect to Home Page
-          }, 2000);
+          setPopupMessage("❌ Login failed. Try again.");
         }
-        setIsLoggingIn(false);
-      }, 1000);
+        setShowPopup(true);
+      }
+      setIsLoggingIn(false);
     }
   };
 
   return (
-    <div className={styles.loginContainer}>
-      <div className={styles.circularAnimation}></div>
-
-      {showPopup && (
-        <div className={styles.popup}>
-          <p>User not found. Please register first.</p>
-          <button onClick={() => { setShowPopup(false); setIsSignup(true); }}>OK</button>
-        </div>
-      )}
-
-      {showSuccessPopup && (
-        <div className={styles.successPopup}>
-          <p>🎉 {isSignup ? "Signup Successful! Redirecting to Login..." : "Login Successful! Redirecting..."}</p>
-        </div>
-      )}
-
-      <div className={styles.loginForm}>
+    <Container className="d-flex justify-content-center align-items-center vh-100">
+      <div className="p-4 rounded shadow-lg bg-white w-100" style={{ maxWidth: "400px" }}>
         {!isSignup ? (
-          <form onSubmit={handleAuth}>
-            <h2 className={styles.title}>Login</h2>
-            <input type="email" name="email" placeholder="Email" className={styles.inputField} value={formData.email} onChange={handleChange} required />
-            <input type="password" name="password" placeholder="Password" className={styles.inputField} value={formData.password} onChange={handleChange} required />
-            {error && <p className={styles.errorText}>{error}</p>}
+          <Form onSubmit={handleAuth}>
+            <h2 className="text-center mb-4">Login</h2>
+            <Form.Group className="mb-3">
+              <Form.Control type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+            </Form.Group>
             
-            <button className={styles.loginButton} disabled={isLoggingIn}>
+            <p className="text-end text-primary" style={{ cursor: "pointer" }} onClick={() => router.push("/forgot-password")}>
+              Forgot your password?
+            </p>
+
+            <Button type="submit" className="w-100" variant="warning" disabled={isLoggingIn}>
               {isLoggingIn ? "Logging in..." : "Login"}
-            </button>
-            <p className={styles.signup} onClick={() => setIsSignup(true)}>Signup</p>
-          </form>
+            </Button>
+            <p className="text-center mt-3 text-primary" style={{ cursor: "pointer" }} onClick={() => setIsSignup(true)}>
+              Don't have an account? Sign up
+            </p>
+          </Form>
         ) : (
-          <form onSubmit={handleAuth}>
-            <h2 className={styles.title}>Signup</h2>
-            <input type="text" name="name" placeholder="Full Name" className={styles.inputField} value={formData.name} onChange={handleChange} required />
-            <input type="date" name="dob" className={styles.inputField} value={formData.dob} onChange={handleChange} required />
-            <input type="email" name="email" placeholder="Email" className={styles.inputField} value={formData.email} onChange={handleChange} required />
-            <input type="password" name="password" placeholder="Password" className={styles.inputField} value={formData.password} onChange={handleChange} required />
-            <input type="password" name="confirmPassword" placeholder="Confirm Password" className={styles.inputField} value={formData.confirmPassword} onChange={handleChange} required />
+          <Form onSubmit={handleAuth}>
+            <h2 className="text-center mb-4">Signup</h2>
+            <Form.Group className="mb-3">
+              <Form.Control type="text" name="name" placeholder="Full Name" value={formData.name} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="date" name="dob" value={formData.dob} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="tel" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} required />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Control type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} required />
+            </Form.Group>
             
-            <button className={styles.loginButton} disabled={isLoggingIn}>
+            <Button type="submit" className="w-100" variant="success" disabled={isLoggingIn}>
               {isLoggingIn ? "Signing up..." : "Signup"}
-            </button>
-            <p className={styles.signup} onClick={() => setIsSignup(false)}>Login</p>
-          </form>
+            </Button>
+            <p className="text-center mt-3 text-primary" style={{ cursor: "pointer" }} onClick={() => setIsSignup(false)}>
+              Already have an account? Login
+            </p>
+          </Form>
         )}
       </div>
-    </div>
+
+      {/* ✅ Bootstrap Modal Popup */}
+      <Modal show={showPopup} onHide={() => setShowPopup(false)} centered>
+        <Modal.Body className="text-center">
+          <p className="mb-3">{popupMessage}</p>
+          <Button variant="danger" onClick={() => {
+            setShowPopup(false);
+            if (popupMessage.includes("Reset your password")) {
+              router.push("/forgot-password");
+            } else if (popupMessage.includes("register first")) {
+              setIsSignup(true);
+            }
+          }}>
+            OK
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </Container>
   );
 }

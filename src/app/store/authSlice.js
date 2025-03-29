@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadOrdersAfterLogin, clearOrders } from "./orderSlice"; // ✅ Import order actions
+import { loadOrdersAfterLogin, clearOrders } from "./orderSlice"; 
 
 const initialState = {
   user: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) || null : null,
@@ -27,12 +27,12 @@ const authSlice = createSlice({
 
     login: (state, action) => {
       const { email, password } = action.payload;
-      const user = state.users.find((u) => u.email === email);
+      const userIndex = state.users.findIndex((u) => u.email === email);
 
-      if (user) {
-        if (user.password === password) {
-          state.user = user;
-          localStorage.setItem("user", JSON.stringify(user));
+      if (userIndex !== -1) {
+        if (state.users[userIndex].password === password) {
+          state.user = state.users[userIndex];
+          localStorage.setItem("user", JSON.stringify(state.user));
           state.error = null;
         } else {
           state.error = "Incorrect password.";
@@ -50,21 +50,21 @@ const authSlice = createSlice({
     clearError: (state) => {
       state.error = null;
     },
-  },
 
-  // ✅ Fix Extra Reducers: Directly call functions inside reducers
-  extraReducers: (builder) => {
-    builder.addCase("auth/login", (state) => {
-      if (state.user) {
-        loadOrdersAfterLogin(state.user.email); // ✅ Load orders after login
+    resetPassword: (state, action) => {
+      const { email, newPassword } = action.payload;
+      const userIndex = state.users.findIndex((u) => u.email === email);
+
+      if (userIndex !== -1) {
+        state.users[userIndex].password = newPassword;
+        localStorage.setItem("users", JSON.stringify(state.users));
+        state.error = null;
+      } else {
+        state.error = "User not found.";
       }
-    });
-
-    builder.addCase("auth/logout", () => {
-      clearOrders(); // ✅ Clear orders after logout
-    });
+    },
   },
 });
 
-export const { register, login, logout, clearError } = authSlice.actions;
+export const { register, login, logout, clearError, resetPassword } = authSlice.actions;
 export default authSlice.reducer;

@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Navbar, Nav, Container, Button, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Container, Button, NavDropdown, Offcanvas } from "react-bootstrap";
 import { FaShoppingCart, FaUser, FaBars, FaSignOutAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "@/app/store/authSlice";
@@ -14,6 +14,7 @@ export default function CustomNavbar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
   const cartRef = useRef(null);
 
   const user = useSelector((state) => state.auth.user);
@@ -33,6 +34,7 @@ export default function CustomNavbar() {
     };
   }, []);
 
+  // Logout function
   const handleLogout = () => {
     dispatch(logout());
     dispatch(clearCart(user?.email));
@@ -41,68 +43,71 @@ export default function CustomNavbar() {
 
   return (
     <>
-      <Navbar expand="lg" className="custom-navbar fixed-navbar">
+      <Navbar expand="lg" className="fixed-navbar">
         <Container fluid>
+          {/* Logo */}
           <Navbar.Brand as={Link} href="/" className="brand">
             <img src="/images/logo__mk.png" alt="Logo" height="60" />
           </Navbar.Brand>
 
-          {/* Mobile View - Cart & Profile Icons Always Visible */}
-          <div className="mobile-icons d-lg-none">
-            <div className="cart-container mx-3" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
+          {/* Mobile Cart & Profile Icons */}
+          <div className="d-flex d-lg-none">
+            <div className="cart-container" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
               <FaShoppingCart className="cart-icon" size={22} />
               {user && cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
             </div>
             <FaUser className="profile-icon" size={22} onClick={() => router.push(user ? "/profile" : "/Login")} />
           </div>
 
-          <Navbar.Toggle aria-controls="navbar-nav">
+          {/* Mobile Toggle Button */}
+          <Navbar.Toggle aria-controls="navbar-nav" onClick={() => setShowOffcanvas(true)}>
             <FaBars size={24} />
           </Navbar.Toggle>
 
-          <Navbar.Collapse id="navbar-nav">
-            <Nav className="mx-auto text-center">
-              <Nav.Link as={Link} href="/">Home</Nav.Link>
-              <Nav.Link as={Link} href="/aboutus">About Us</Nav.Link>
-              <Nav.Link as={Link} href="/shop">Shop</Nav.Link>
-              <Nav.Link as={Link} href="/blog">Blog</Nav.Link>
-              <Nav.Link as={Link} href="/ContactUs">Contact Us</Nav.Link>
-
-              {/* Pages Dropdown */}
-              <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
-                <NavDropdown.Item as={Link} href="/Service">Service</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/Gallery">Gallery</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/Testimonials">Testimonials</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/reservation">Reservation</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/Login">My Account</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/Your-Order">Your Order</NavDropdown.Item>
-                <NavDropdown.Item as={Link} href="/TrackingPage">Tracking</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-
-            {/* Desktop View - Cart & Profile Icons */}
-            <div className="d-none d-lg-flex align-items-center">
-              <div className="cart-container mx-3" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
-                <FaShoppingCart className="cart-icon" size={22} />
-                {user && cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
-              </div>
-
-              {user ? (
-                <NavDropdown title={<FaUser size={20} />} id="user-dropdown">
-                  <NavDropdown.Item as={Link} href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item onClick={handleLogout}>
-                    <FaSignOutAlt /> Logout
-                  </NavDropdown.Item>
+          {/* Offcanvas Navbar for Mobile */}
+          <Offcanvas show={showOffcanvas} onHide={() => setShowOffcanvas(false)} placement="start">
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title>Menu</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="me-auto text-center">
+                <Nav.Link as={Link} href="/" onClick={() => setShowOffcanvas(false)}>Home</Nav.Link>
+                <Nav.Link as={Link} href="/aboutus" onClick={() => setShowOffcanvas(false)}>About Us</Nav.Link>
+                <Nav.Link as={Link} href="/shop" onClick={() => setShowOffcanvas(false)}>Shop</Nav.Link>
+                <Nav.Link as={Link} href="/blog" onClick={() => setShowOffcanvas(false)}>Blog</Nav.Link>
+                <Nav.Link as={Link} href="/ContactUs" onClick={() => setShowOffcanvas(false)}>Contact Us</Nav.Link>
+                <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
+                  <NavDropdown.Item as={Link} href="/Service">Service</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} href="/Gallery">Gallery</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} href="/Testimonials">Testimonials</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} href="/faq">FAQ's</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} href="/Login">My Account</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} href="/Your-Order">Your Order</NavDropdown.Item>
                 </NavDropdown>
-              ) : (
-                <FaUser className="profile-icon" size={20} onClick={() => router.push("/Login")} />
-              )}
+              </Nav>
+            </Offcanvas.Body>
+          </Offcanvas>
 
-              <Button variant="danger" className="ms-3 px-4 fw-bold order-now">ORDER NOW</Button>
+          {/* Desktop View - Cart & Profile Icons */}
+          <div className="d-none d-lg-flex align-items-center">
+            <div className="cart-container" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
+              <FaShoppingCart className="cart-icon" size={22} />
+              {user && cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
             </div>
-          </Navbar.Collapse>
+
+            {user ? (
+              <NavDropdown title={<FaUser size={20} />} id="user-dropdown">
+                <NavDropdown.Item as={Link} href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>
+                  <FaSignOutAlt /> Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <FaUser className="profile-icon" size={20} onClick={() => router.push("/Login")} />
+            )}
+            <Button variant="danger" className="ms-3 px-4 fw-bold order-now">ORDER NOW</Button>
+          </div>
         </Container>
       </Navbar>
 
@@ -135,28 +140,21 @@ export default function CustomNavbar() {
         </div>
       )}
 
-      {/* ✅ Styles */}
+      {/* ✅ Internal CSS */}
       <style jsx>{`
         .fixed-navbar {
           position: fixed;
           top: 0;
-          left: 0;
           width: 100%;
           z-index: 1000;
-          background: rgba(0, 0, 0, 0.9);
-          transition: background 0.3s ease-in-out;
-          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-        }
-
-        .mobile-icons {
-          display: flex;
-          align-items: center;
+          background: black;
         }
 
         .cart-container {
           position: relative;
           cursor: pointer;
         }
+
         .cart-count {
           position: absolute;
           top: -5px;
