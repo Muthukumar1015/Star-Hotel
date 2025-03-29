@@ -191,6 +191,31 @@ export default function CustomNavbar() {
             left: 5%;
           }
         }
+          .cart-preview {
+    position: fixed;
+    top: 60px;
+    right: 10px;
+    width: 280px;
+    max-height: 400px; /* Set a fixed height */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1050;
+  }
+
+  /* Add smooth scrolling */
+  .cart-preview::-webkit-scrollbar {
+    width: 6px;
+  }
+  .cart-preview::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  .cart-preview::-webkit-scrollbar-track {
+    background: transparent;
+  }
       `}</style>
     </>
   );

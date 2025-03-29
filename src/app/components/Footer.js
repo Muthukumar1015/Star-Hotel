@@ -63,17 +63,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Our Menu */}
-          <div className="col-md-2">
-            <h6>Our Menu</h6>
-            <ul className="list-unstyled">
-              <li><a href="#">Burger King</a></li>
-              <li><a href="#">Pizza King</a></li>
-              <li><a href="#">Fresh Food</a></li>
-              <li><a href="#">Vegetable</a></li>
-              <li><a href="#">Desserts</a></li>
-            </ul>
-          </div>
+         
 
           {/* Contact & Subscription */}
           <div className="col-md-4">

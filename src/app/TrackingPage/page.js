@@ -19,7 +19,7 @@ export default function TrackingPage() {
   const [trackingId, setTrackingId] = useState(null);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  
   // ✅ Get tracking ID safely inside useEffect
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
