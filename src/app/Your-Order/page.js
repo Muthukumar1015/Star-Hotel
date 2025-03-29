@@ -11,10 +11,15 @@ export default function YourOrdersPage() {
   const router = useRouter();
   const statuses = ["Order Confirmed", "Item Packed", "Shipped", "Out for Delivery", "Delivered"];
 
-  const [orderStatus, setOrderStatus] = useState(() => {
-    return JSON.parse(localStorage.getItem("orderStatus")) || {};
-  });
+  const [orderStatus, setOrderStatus] = useState({});
   const [completedOrders, setCompletedOrders] = useState({});
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const savedStatus = JSON.parse(localStorage.getItem("orderStatus") || "{}");
+      setOrderStatus(savedStatus);
+    }
+  }, []);
 
   useEffect(() => {
     const updateStatus = () => {
@@ -22,7 +27,7 @@ export default function YourOrdersPage() {
       const completed = {};
 
       orders.forEach((order) => {
-        let startTime = order.startTime || JSON.parse(localStorage.getItem(`startTime-${order.id}`));
+        let startTime = order.startTime || JSON.parse(localStorage.getItem(`startTime-${order.id}`) || "0");
         if (!startTime) {
           startTime = Date.now();
           localStorage.setItem(`startTime-${order.id}`, JSON.stringify(startTime));
