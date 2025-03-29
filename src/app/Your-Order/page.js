@@ -11,14 +11,10 @@ export default function YourOrdersPage() {
   const router = useRouter();
   const statuses = ["Order Confirmed", "Item Packed", "Shipped", "Out for Delivery", "Delivered"];
 
-  const [orderStatus, setOrderStatus] = useState({});
+  const [orderStatus, setOrderStatus] = useState(() => {
+    return JSON.parse(localStorage.getItem("orderStatus")) || {};
+  });
   const [completedOrders, setCompletedOrders] = useState({});
-
-  // Load saved order statuses from localStorage
-  useEffect(() => {
-    const savedStatus = JSON.parse(localStorage.getItem("orderStatus")) || {};
-    setOrderStatus(savedStatus);
-  }, []);
 
   useEffect(() => {
     const updateStatus = () => {
@@ -26,7 +22,12 @@ export default function YourOrdersPage() {
       const completed = {};
 
       orders.forEach((order) => {
-        const startTime = order.startTime || new Date(order.date).getTime(); // Use saved start time
+        let startTime = order.startTime || JSON.parse(localStorage.getItem(`startTime-${order.id}`));
+        if (!startTime) {
+          startTime = Date.now();
+          localStorage.setItem(`startTime-${order.id}`, JSON.stringify(startTime));
+        }
+
         const elapsedTime = (Date.now() - startTime) / (1000 * 60); // Minutes elapsed
 
         let step = 0;
@@ -37,7 +38,6 @@ export default function YourOrdersPage() {
 
         newStatus[order.id] = step;
 
-        // If order is older than 1 hour, mark as completed
         if (elapsedTime >= 60) {
           completed[order.id] = true;
         }
@@ -45,11 +45,11 @@ export default function YourOrdersPage() {
 
       setOrderStatus(newStatus);
       setCompletedOrders(completed);
-      localStorage.setItem("orderStatus", JSON.stringify(newStatus)); // Save progress
+      localStorage.setItem("orderStatus", JSON.stringify(newStatus));
     };
 
     updateStatus();
-    const interval = setInterval(updateStatus, 5000); // Update every 5 seconds
+    const interval = setInterval(updateStatus, 5000);
     return () => clearInterval(interval);
   }, [orders]);
 
@@ -67,13 +67,11 @@ export default function YourOrdersPage() {
               {completedOrders[order.id] && <BsCheckCircle color="green" size={20} />}
             </p>
 
-            {/* Order Status */}
             <Alert variant="info">
               <h6>Status: {statuses[orderStatus[order.id]] || "Processing"}</h6>
             </Alert>
             <ProgressBar now={(orderStatus[order.id] + 1) * 20} label={statuses[orderStatus[order.id]] || "Processing"} />
 
-            {/* Order Items */}
             <Table bordered className="mt-3">
               <thead>
                 <tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th></tr>
@@ -91,7 +89,6 @@ export default function YourOrdersPage() {
               </tbody>
             </Table>
 
-            {/* Track Order Button */}
             <Button variant="primary" onClick={() => router.push(`/TrackingPage?trackingId=${order.id}`)}>
               Track Order
             </Button>

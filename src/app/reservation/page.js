@@ -48,8 +48,8 @@ const Reservation = () => {
           </p>
           <div className={styles.info}>
             <p><strong>Contact:</strong> +91 8148888888</p>
-            <p><strong>Email:</strong> vanakam da mapla.@gmail.com</p>
-            <p><strong>Address:</strong> Dubai Kuruku Sandhu</p>
+            <p><strong>Email:</strong>Mediacal collage opposite,ariyalur</p>
+            <p><strong>Address:</strong> </p>
             <p><strong>Follow:</strong></p>
             <div className={styles.icons}>
               <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">

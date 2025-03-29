@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   products: [
     { id: 1, name: "Chicken Pizza", price: 24, category: "Chicken", image: "/images/dishes3.png", rating: 4.5 },
-    { id: 2, name: "Egg And Cucumber", price: 28, category: "Drink", image: "/images/item4.png", rating: 4.2 },
+    { id: 7, name: "Chicken Noodles", price: 39, category: "Noodles", image: "/images/dishes4.png", rating: 4.2 },
     { id: 3, name: "Chicken Fried Rice", price: 100.99, category: "Chicken", image: "/images/dishes1.png", rating: 4.0 },
     { id: 4, name: "Chicken Leg Piece", price: 50, category: "Chicken", image: "/images/offerThumb1.png", rating: 5.0 },
     { id: 5, name: "Fast Food Combo", price: 17, category: "Cocktail", image: "/images/dishes5.png", rating: 4.3 },
@@ -15,7 +15,7 @@ const initialState = {
     { id: 11, name: "Cheesy Pizza", price: 18.99, category: "Pizza", image: "/images/item3.png", rating: 4.4 },
     { id: 12, name: "Tasty Pasta", price: 22.99, category: "Pasta", image: "/images/item4.png", rating: 4.3 },
     { id: 1, name: "Chicken Pizza", price: 24, category: "Chicken", image: "/images/dishes3.png", rating: 4.5 },
-    { id: 2, name: "Egg And Cucumber", price: 28, category: "Drink", image: "/images/item4.png", rating: 4.2 },
+    { id: 7, name: "Chicken Noodles", price: 39, category: "Noodles", image: "/images/dishes4.png", rating: 4.2 },
     { id: 3, name: "Chicken Fried Rice", price: 100.99, category: "Chicken", image: "/images/dishes1.png", rating: 4.0 },
     { id: 4, name: "Chicken Leg Piece", price: 50, category: "Chicken", image: "/images/offerThumb1.png", rating: 5.0 },
     { id: 5, name: "Fast Food Combo", price: 17, category: "Cocktail", image: "/images/offerThumb1.png", rating: 4.3 },

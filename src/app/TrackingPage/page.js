@@ -3,60 +3,68 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { updateOrderStatus } from "@/app/store/orderSlice";
-import { Container, Row, Col, ListGroup, Spinner, Image } from "react-bootstrap";
+import { Container, Row, Col, ListGroup, Image, Spinner } from "react-bootstrap";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FaShippingFast } from "react-icons/fa";
-import { useSearchParams } from "next/navigation";
 
 const statuses = ["Order Confirmed", "Item Packed", "Shipped", "Out for Delivery", "Delivered"];
-const updateInterval = 5 * 1000; // Check every 5 seconds
-const trackingDuration = 60 * 60 * 1000; // 1 hour
+const updateInterval = 30 * 1000; // 30 seconds
 
 export default function TrackingPage() {
   const dispatch = useDispatch();
   const orders = useSelector((state) => state.orders.orders);
-  
+  const trackingStatus = useSelector((state) => state.orders.trackingStatus);
+
   const [trackingId, setTrackingId] = useState(null);
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
-  
-  // ✅ Get tracking ID safely inside useEffect
+
+  // ✅ Get Tracking ID from URL on first load
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const id = searchParams.get("trackingId");
-    setTrackingId(id);
+    console.log("Extracted Tracking ID:", id); // Debugging
+
+    if (id) {
+      setTrackingId(id);
+    }
   }, []);
 
-  // Load order from Redux or localStorage when trackingId is available
+  // ✅ Fetch Order from Redux & Local Storage
   useEffect(() => {
     if (!trackingId) return;
 
+    console.log("Fetching order for tracking ID:", trackingId);
+
     const storedOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    console.log("Stored Orders:", storedOrders);
+
     let foundOrder = orders.find((o) => o.id === trackingId) || storedOrders.find((o) => o.id === trackingId);
+    console.log("Found Order:", foundOrder);
 
     if (foundOrder) {
-      if (!foundOrder.startTime) {
-        foundOrder.startTime = Date.now();
-        localStorage.setItem("orders", JSON.stringify(storedOrders));
-      }
-      setOrder(foundOrder);
+      setOrder({
+        ...foundOrder,
+        statusIndex: trackingStatus[trackingId]?.index ?? 0, // Ensure valid index
+      });
     }
     setLoading(false);
-  }, [trackingId, orders]);
+  }, [trackingId, orders, trackingStatus]);
 
-  // Auto-update order status every 5 seconds for 1 hour
+  // ✅ Keep Updating Order Status
   useEffect(() => {
-    if (!order) return;
-    const elapsedTime = Date.now() - order.startTime;
-    if (elapsedTime >= trackingDuration) return; // Stop updates after 1 hour
+    if (!trackingId) return;
+    console.log("Starting order status updates for tracking ID:", trackingId);
 
     const interval = setInterval(() => {
-      dispatch(updateOrderStatus());
+      console.log("Dispatching updateOrderStatus...");
+      dispatch(updateOrderStatus(trackingId));
     }, updateInterval);
 
     return () => clearInterval(interval);
-  }, [dispatch, order]);
+  }, [dispatch, trackingId]);
 
+  // ✅ If Loading, Show Spinner
   if (loading) {
     return (
       <Container className="mt-5 text-center">
@@ -66,14 +74,18 @@ export default function TrackingPage() {
     );
   }
 
+  // ✅ If No Order Found, Show Error Message
   if (!order) {
-    return <Container className="mt-5"><h4>Order not found!</h4></Container>;
+    return (
+      <Container className="mt-5 text-center">
+        <h4>Order not found! Please check your tracking ID.</h4>
+      </Container>
+    );
   }
 
   return (
     <Container className="mt-5 p-4 border rounded shadow-lg tracking-container">
       <Row>
-        {/* Tracking Details (Left Side) */}
         <Col md={8}>
           <h3 className="fw-bold text-center mb-4">Order Tracking</h3>
           <h6 className="text-center mb-3">Tracking ID: {trackingId}</h6>
@@ -88,7 +100,7 @@ export default function TrackingPage() {
                 {index < order.statusIndex ? (
                   <BsCheckCircleFill color="green" size={24} className="me-3" />
                 ) : index === order.statusIndex ? (
-                  <Spinner animation="border" size="sm" className="me-3" />
+                  <span className="me-3">🔄</span>
                 ) : (
                   <FaShippingFast size={24} className="me-3 text-muted" />
                 )}
@@ -98,10 +110,9 @@ export default function TrackingPage() {
           </ListGroup>
         </Col>
 
-        {/* Image Container (Right Side) */}
         <Col md={4} className="d-flex align-items-center justify-content-center">
           <Image 
-            src="/images/delivery-boy.png"  // 🔄 Change this to your preferred image
+            src="/images/delivery-boy1.png"
             alt="Tracking Image"
             fluid
             className="tracking-image"
@@ -109,7 +120,6 @@ export default function TrackingPage() {
         </Col>
       </Row>
 
-      {/* ✅ Styles */}
       <style jsx>{`
         .tracking-container {
           max-width: 900px;

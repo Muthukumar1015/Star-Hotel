@@ -14,17 +14,23 @@ export default function CustomNavbar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const [showCartPreview, setShowCartPreview] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const cartRef = useRef(null);
+  const navbarRef = useRef(null);
 
   const user = useSelector((state) => state.auth.user);
   const cartItems = useSelector((state) => state.cart?.items || []);
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  // Hide Cart Preview when clicking outside
+  // Hide Cart & Navbar when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
+      if (
+        cartRef.current && !cartRef.current.contains(event.target) &&
+        navbarRef.current && !navbarRef.current.contains(event.target)
+      ) {
         setShowCartPreview(false);
+        setExpanded(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,32 +47,38 @@ export default function CustomNavbar() {
 
   return (
     <>
-      <Navbar expand="lg" className="custom-navbar fixed-navbar">
+      <Navbar ref={navbarRef} expand="lg" className="custom-navbar fixed-navbar" expanded={expanded}>
         <Container fluid>
           <Navbar.Brand as={Link} href="/" className="brand">
             <img src="/images/logo__mk.png" alt="Logo" height="60" />
           </Navbar.Brand>
 
-          {/* Mobile View - Cart & Profile Icons Always Visible */}
+          {/* Mobile View - Cart & Profile Icons */}
           <div className="mobile-icons d-lg-none">
-            <div className="cart-container mx-3" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
+            <div
+              className="cart-container mx-3"
+              onClick={() => (!user ? router.push("/Login") : setShowCartPreview(!showCartPreview))}
+            >
               <FaShoppingCart className="cart-icon" size={22} />
               {user && cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
             </div>
             <FaUser className="profile-icon" size={22} onClick={() => router.push(user ? "/profile" : "/Login")} />
           </div>
 
-          <Navbar.Toggle aria-controls="navbar-nav">
+          <Navbar.Toggle
+            aria-controls="navbar-nav"
+            onClick={() => setExpanded(!expanded)}
+          >
             <FaBars size={24} />
           </Navbar.Toggle>
 
           <Navbar.Collapse id="navbar-nav">
             <Nav className="mx-auto text-center">
-              <Nav.Link as={Link} href="/">Home</Nav.Link>
-              <Nav.Link as={Link} href="/aboutus">About Us</Nav.Link>
-              <Nav.Link as={Link} href="/shop">Shop</Nav.Link>
-              <Nav.Link as={Link} href="/blog">Blog</Nav.Link>
-              <Nav.Link as={Link} href="/ContactUs">Contact Us</Nav.Link>
+              <Nav.Link as={Link} href="/" onClick={() => setExpanded(false)}>Home</Nav.Link>
+              <Nav.Link as={Link} href="/aboutus" onClick={() => setExpanded(false)}>About Us</Nav.Link>
+              <Nav.Link as={Link} href="/shop" onClick={() => setExpanded(false)}>Shop</Nav.Link>
+              <Nav.Link as={Link} href="/blog" onClick={() => setExpanded(false)}>Blog</Nav.Link>
+              <Nav.Link as={Link} href="/ContactUs" onClick={() => setExpanded(false)}>Contact Us</Nav.Link>
 
               {/* Pages Dropdown */}
               <NavDropdown title="Pages" id="pages-dropdown" className="fw-semibold">
@@ -83,7 +95,10 @@ export default function CustomNavbar() {
 
             {/* Desktop View - Cart & Profile Icons */}
             <div className="d-none d-lg-flex align-items-center">
-              <div className="cart-container mx-3" onClick={() => !user ? router.push("/Login") : setShowCartPreview(!showCartPreview)}>
+              <div
+                className="cart-container mx-3"
+                onClick={() => (!user ? router.push("/Login") : setShowCartPreview(!showCartPreview))}
+              >
                 <FaShoppingCart className="cart-icon" size={22} />
                 {user && cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
               </div>
