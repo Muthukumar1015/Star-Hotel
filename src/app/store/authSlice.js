@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadOrdersAfterLogin, clearOrdersOnLogout } from "./orderSlice";
+import { loadOrdersAfterLogin, clearOrders } from "./orderSlice"; // ✅ Import order actions
 
 const initialState = {
   user: typeof window !== "undefined" ? JSON.parse(localStorage.getItem("user")) || null : null,
@@ -27,16 +27,13 @@ const authSlice = createSlice({
 
     login: (state, action) => {
       const { email, password } = action.payload;
-      const userIndex = state.users.findIndex((u) => u.email === email);
+      const user = state.users.find((u) => u.email === email);
 
-      if (userIndex !== -1) {
-        if (state.users[userIndex].password === password) {
-          state.user = state.users[userIndex];
-          localStorage.setItem("user", JSON.stringify(state.user));
+      if (user) {
+        if (user.password === password) {
+          state.user = user;
+          localStorage.setItem("user", JSON.stringify(user));
           state.error = null;
-
-          // ✅ Load user's orders on login
-          action.asyncDispatch(loadOrdersAfterLogin(email));
         } else {
           state.error = "Incorrect password.";
         }
@@ -45,32 +42,29 @@ const authSlice = createSlice({
       }
     },
 
-    logout: (state, action) => {
+    logout: (state) => {
       state.user = null;
       localStorage.removeItem("user");
-
-      // ✅ Clear Redux orders (but keep them in localStorage)
-      action.asyncDispatch(clearOrdersOnLogout());
     },
 
     clearError: (state) => {
       state.error = null;
     },
+  },
 
-    resetPassword: (state, action) => {
-      const { email, newPassword } = action.payload;
-      const userIndex = state.users.findIndex((u) => u.email === email);
-
-      if (userIndex !== -1) {
-        state.users[userIndex].password = newPassword;
-        localStorage.setItem("users", JSON.stringify(state.users));
-        state.error = null;
-      } else {
-        state.error = "User not found.";
+  // ✅ Fix Extra Reducers: Directly call functions inside reducers
+  extraReducers: (builder) => {
+    builder.addCase("auth/login", (state) => {
+      if (state.user) {
+        loadOrdersAfterLogin(state.user.email); // ✅ Load orders after login
       }
-    },
+    });
+
+    builder.addCase("auth/logout", () => {
+      clearOrders(); // ✅ Clear orders after logout
+    });
   },
 });
 
-export const { register, login, logout, clearError, resetPassword } = authSlice.actions;
+export const { register, login, logout, clearError } = authSlice.actions;
 export default authSlice.reducer;
