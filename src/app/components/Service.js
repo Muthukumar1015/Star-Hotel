@@ -1,3 +1,5 @@
+'use client';
+
 import { NextSeo } from 'next-seo';
 import styles from './Service.module.css';
 
