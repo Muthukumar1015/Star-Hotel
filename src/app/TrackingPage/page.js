@@ -112,7 +112,7 @@ export default function TrackingPage() {
 
         <Col md={4} className="d-flex align-items-center justify-content-center">
           <Image 
-            src="/images/delivery-boy1.png"
+            src="/images/delivery-boy.png"
             alt="Tracking Image"
             fluid
             className="tracking-image"

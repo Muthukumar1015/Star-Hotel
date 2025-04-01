@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Container, Table, Button, Alert, ProgressBar } from "react-bootstrap";
 import { useRouter } from "next/navigation";
-import { BsCheckCircle } from "react-icons/bs"; // Tick icon
+import { BsCheckCircle } from "react-icons/bs"; 
 
 export default function YourOrdersPage() {
   const orders = useSelector((state) => state.orders.orders);
@@ -54,7 +54,7 @@ export default function YourOrdersPage() {
     };
 
     updateStatus();
-    const interval = setInterval(updateStatus, 5000);
+    const interval = setInterval(updateStatus, 3000);
     return () => clearInterval(interval);
   }, [orders]);
 
