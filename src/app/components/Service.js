@@ -1,7 +1,8 @@
 'use client';
 
 import { NextSeo } from 'next-seo';
-import styles from './Service.module.css';
+import Image from 'next/image';  // Import Image component for optimization
+import styles from '../styles/Service.module.css';
 
 const services = [
   { icon: '/images/dining.png', title: 'Dining Guides' },
@@ -45,10 +46,12 @@ const Service = () => {
             {services.map((service, index) => (
               <div key={index} className={styles.serviceCard}>
                 <div className={styles.iconWrapper}>
-                  <img
+                  <Image
                     src={service.icon}
                     alt={`Icon for ${service.title} - Our service for ${service.title.toLowerCase()}`}
                     className={styles.serviceIcon}
+                    width={100}  // Specify image dimensions
+                    height={100}  // Specify image dimensions
                   />
                 </div>
                 <h3 className={styles.serviceTitle}>{service.title}</h3>
